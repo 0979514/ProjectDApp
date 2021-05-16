@@ -188,6 +188,73 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
+            Divider(
+              height: 30.0,
+              color: Colors.grey[900],
+            ),
+            Center(
+              child: Text("Current marathon speed",
+                  style: TextStyle(
+                      color: Colors.black,
+                      letterSpacing: 1.0,
+                      fontWeight: FontWeight.bold
+                  )),
+            ),
+            SizedBox(height: 10.0,),
+            Center(
+              child: FlatButton(
+                  color: Colors.blue,
+                  onPressed: (){},
+                  child: Text('Set current pace',
+                      style: TextStyle(
+                        color:Colors.black,
+                        letterSpacing: 1.0,
+                        fontWeight: FontWeight.bold,
+                      ))),
+            ),
+            Divider(
+              height: 30.0,
+              color: Colors.grey[900],
+            ),
+            Center(
+              child: Text("Desired marathon speed",
+                  style: TextStyle(
+                      color: Colors.black,
+                      letterSpacing: 1.0,
+                      fontWeight: FontWeight.bold
+                  )),
+            ),
+            SizedBox(height: 10.0,),
+            Center(
+              child: Text("4:00:00",
+                  style: TextStyle(
+                    color: Colors.red,
+                    letterSpacing: 1.0,
+                    fontWeight: FontWeight.bold,
+                  )),
+            ),
+            Divider(
+              height: 30.0,
+              color: Colors.grey[900],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+
+                FlatButton(
+                    color: Colors.blue,
+                    onPressed: (){},
+                    child: Text('Set Goal')),
+                FlatButton(
+                    color: Colors.green,
+                    onPressed: (){},
+                    child: Text('Start Workout')),
+                FlatButton(
+                    color: Colors.blue,
+                    onPressed: (){},
+                    child: Text('Set Workout')),
+              ],
+            ),
           ],
         ),
       ),
