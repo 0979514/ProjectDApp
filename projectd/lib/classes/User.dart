@@ -18,9 +18,6 @@ class User {
   //Get userdata
   Future<void> GetData() async {
     try{
-      //Get date of yesterday
-      String dayBefore = DateTime.now().add(Duration(hours: -24)).toString().substring(0,10);
-
       //Get profile data
       Response response = await get(Uri.parse(
           "https://api.fitbit.com/1/user/-/profile.json"
@@ -41,7 +38,7 @@ class User {
 
       //Get sleepamount data
       Response response3 = await get(Uri.parse(
-          "https://api.fitbit.com/1.2/user/-/sleep/date/${dayBefore}.json"
+          "https://api.fitbit.com/1.2/user/-/sleep/date/today.json"
       ),
           headers: {
             "Authorization":
