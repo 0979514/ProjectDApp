@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projectd/classes/Auth.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key key}) : super(key: key);
@@ -15,6 +16,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
 
     data = ModalRoute.of(context).settings.arguments;
+    var temp = new Login();
+    temp.readYAML();
+
 
     return Scaffold(
       backgroundColor: Colors.white,
