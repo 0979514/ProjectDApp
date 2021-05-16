@@ -41,7 +41,7 @@ class User {
 
       //Get sleepamount data
       Response response3 = await get(Uri.parse(
-          "https://api.fitbit.com/1.2/user/-/sleep/date/2021-05-14.json"
+          "https://api.fitbit.com/1.2/user/-/sleep/date/${dayBefore}.json"
       ),
           headers: {
             "Authorization":
