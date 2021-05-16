@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projectd/classes/User.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class LoadingScreen extends StatefulWidget {
   const LoadingScreen({Key key}) : super(key: key);
@@ -36,8 +37,12 @@ class _LoadingScreenState extends State<LoadingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Text('loadng haha'),
-
+      body: Center(
+        child: SpinKitPumpingHeart(
+          color: Colors.pink,
+          size: 100.0,
+        ),
+      ),
     );
   }
 }
