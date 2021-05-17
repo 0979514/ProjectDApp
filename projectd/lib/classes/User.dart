@@ -56,6 +56,8 @@ class User {
 
       //Calculate weekly resting heartrate
       int total = 0;
+      int daysHeartrateRecorded = 0;
+      int lastDayRecorded = 0;
 
       for (int i = 0; i < 7; i++) {
         total += heartratedata['activities-heart'][i]['value']
@@ -63,6 +65,16 @@ class User {
                 null
             ? heartratedata['activities-heart'][i]['value']['restingHeartRate']
             : 0;
+        daysHeartrateRecorded += heartratedata['activities-heart'][i]['value']
+                    ['restingHeartRate'] !=
+                null
+            ? 1
+            : 0;
+        lastDayRecorded = heartratedata['activities-heart'][i]['value']
+                    ['restingHeartRate'] !=
+                null
+            ? i
+            : lastDayRecorded;
       }
 
       //Pass data to User class
@@ -75,7 +87,8 @@ class User {
           .toString();
 
       //Calculate weekly resting heartrate
-      this.restheartrateweek = (total / 7).toString().substring(0, 2);
+      this.restheartrateweek =
+          (total / daysHeartrateRecorded).toString().substring(0, 2);
 
       //calculate sleepscore = actual sleep in hours / sleepgoal * 10. if sleeping more than goal aka score > 10 then sleepscore = 10 - (score-10)
       double sleepgoalinhours = sleepgoaldata['goal']['minDuration'] / 60;
