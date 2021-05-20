@@ -8,12 +8,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   Map data = {};
 
   @override
   Widget build(BuildContext context) {
-
     data = ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
@@ -25,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
         elevation: 0.0,
       ),
       body: Padding(
-        padding: EdgeInsets.fromLTRB(30.0,40.0,30.0,0.0),
+        padding: EdgeInsets.fromLTRB(30.0, 40.0, 30.0, 0.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -35,7 +33,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 radius: 70.0,
               ),
             ),
-            SizedBox(height: 30.0,),
+            SizedBox(
+              height: 30.0,
+            ),
             Row(
               children: <Widget>[
                 Expanded(
@@ -73,8 +73,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
-
-            SizedBox(height: 10.0,),
+            SizedBox(
+              height: 10.0,
+            ),
             Row(
               children: <Widget>[
                 Expanded(
@@ -91,7 +92,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   Icons.favorite,
                   color: Colors.pink,
                 ),
-                SizedBox(width: 5.0,),
+                SizedBox(
+                  width: 5.0,
+                ),
                 Expanded(
                   flex: 6,
                   child: Text("Heartrate",
@@ -112,11 +115,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
-            SizedBox(height: 10.0,),
+            SizedBox(
+              height: 10.0,
+            ),
             Row(
               children: <Widget>[
                 Expanded(
-                  flex:6,
+                  flex: 6,
                   child: Text("Gender ${data['gender']}",
                       style: TextStyle(
                         color: Colors.black,
@@ -124,12 +129,16 @@ class _HomeScreenState extends State<HomeScreen> {
                         fontWeight: FontWeight.bold,
                       )),
                 ),
-                SizedBox(width: 10.0,),
+                SizedBox(
+                  width: 10.0,
+                ),
                 Icon(
                   Icons.favorite,
                   color: Colors.pink,
                 ),
-                SizedBox(width: 5.0,),
+                SizedBox(
+                  width: 5.0,
+                ),
                 Expanded(
                   flex: 6,
                   child: Text("Weekly Heartrate",
@@ -150,7 +159,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
-            SizedBox(height: 10.0,),
+            SizedBox(
+              height: 10.0,
+            ),
             Row(
               children: <Widget>[
                 Expanded(
@@ -167,7 +178,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   Icons.alarm,
                   color: Colors.black,
                 ),
-                SizedBox(width: 5.0,),
+                SizedBox(
+                  width: 5.0,
+                ),
                 Expanded(
                   flex: 6,
                   child: Text("Sleep",
@@ -197,17 +210,18 @@ class _HomeScreenState extends State<HomeScreen> {
                   style: TextStyle(
                       color: Colors.black,
                       letterSpacing: 1.0,
-                      fontWeight: FontWeight.bold
-                  )),
+                      fontWeight: FontWeight.bold)),
             ),
-            SizedBox(height: 10.0,),
+            SizedBox(
+              height: 10.0,
+            ),
             Center(
               child: FlatButton(
                   color: Colors.blue,
-                  onPressed: (){},
+                  onPressed: () {},
                   child: Text('Set current pace',
                       style: TextStyle(
-                        color:Colors.black,
+                        color: Colors.black,
                         letterSpacing: 1.0,
                         fontWeight: FontWeight.bold,
                       ))),
@@ -221,10 +235,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   style: TextStyle(
                       color: Colors.black,
                       letterSpacing: 1.0,
-                      fontWeight: FontWeight.bold
-                  )),
+                      fontWeight: FontWeight.bold)),
             ),
-            SizedBox(height: 10.0,),
+            SizedBox(
+              height: 10.0,
+            ),
             Center(
               child: Text("4:00:00",
                   style: TextStyle(
@@ -240,18 +255,20 @@ class _HomeScreenState extends State<HomeScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-
                 FlatButton(
                     color: Colors.blue,
-                    onPressed: (){},
+                    onPressed: () {
+                      print("set workout button");
+                      Navigator.pushNamed(context, "/goal");
+                    },
                     child: Text('Set Goal')),
                 FlatButton(
                     color: Colors.green,
-                    onPressed: (){},
+                    onPressed: () {},
                     child: Text('Start Workout')),
                 FlatButton(
                     color: Colors.blue,
-                    onPressed: (){},
+                    onPressed: () {},
                     child: Text('Set Workout')),
               ],
             ),
