@@ -14,14 +14,17 @@ class _LoadingScreenState extends State<LoadingScreen> {
   void SetupFitbitData() async {
     User user = User();
     await user.GetData();
+
     Navigator.pushReplacementNamed(context, '/home',arguments: {
-    'name' : user.name,
-    'age' : user.age,
-    'gender' : user.gender,
-    'avatar' : user.avatar,
-    'restheartrate' : user.restheartrate,
-    'restheartrateweek' : user.restheartrateweek,
-    'sleepscore' : user.sleepscore,
+      'name' : user.name,
+      'age' : user.age,
+      'gender' : user.gender,
+      'avatar' : user.avatar,
+      'restheartrate' : user.restheartrate,
+      'restheartrateweek' : user.restheartrateweek,
+      'sleepscore' : user.sleepscore,
+      'measurement' : user.measurement,
+      'goal' : user.goal
     } );
 
   }

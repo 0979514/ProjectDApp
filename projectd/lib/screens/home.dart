@@ -132,7 +132,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(width: 5.0,),
                 Expanded(
                   flex: 6,
-                  child: Text("Weekly Heartrate",
+                  child: Text("Weekly Resting Heartrate",
                       style: TextStyle(
                         color: Colors.black,
                         letterSpacing: 1.0,
@@ -202,9 +202,19 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             SizedBox(height: 10.0,),
             Center(
+              child: Text(data['measurement'],
+                  style: TextStyle(
+                    color: Colors.red,
+                    letterSpacing: 1.0,
+                    fontWeight: FontWeight.bold,
+                  )),
+            ),
+            Center(
               child: FlatButton(
                   color: Colors.blue,
-                  onPressed: (){},
+                  onPressed: (){
+                    Navigator.pushNamed(context, '/measurement');
+                  },
                   child: Text('Set current pace',
                       style: TextStyle(
                         color:Colors.black,
@@ -213,7 +223,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ))),
             ),
             Divider(
-              height: 30.0,
+              height: 20.0,
               color: Colors.grey[900],
             ),
             Center(
@@ -226,7 +236,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             SizedBox(height: 10.0,),
             Center(
-              child: Text("4:00:00",
+              child: Text(data['goal'],
                   style: TextStyle(
                     color: Colors.red,
                     letterSpacing: 1.0,
@@ -234,7 +244,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   )),
             ),
             Divider(
-              height: 30.0,
+              height: 20.0,
               color: Colors.grey[900],
             ),
             Row(
