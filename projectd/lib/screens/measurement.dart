@@ -40,6 +40,30 @@ class _MeasurementScreenState extends State<MeasurementScreen> {
       'goal' : user.goal
     });
   }
+  void _showAlertDialog() {
+    Widget okButton = FlatButton(
+      child: Text("OK"),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
+
+    AlertDialog alert = AlertDialog(
+      title: Text("Error"),
+      content: Text("Invalid/incorrect data"),
+      actions: [
+        okButton,
+      ],
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -64,35 +88,35 @@ class _MeasurementScreenState extends State<MeasurementScreen> {
                   ),)),
                 SizedBox(height: 20.0,),
                 Text(
-                  '1. Warm up your body with a slow 5 - 10 minute run',
+                  '1. Warm up your body with a slow 5 - 10 minute run  ',
                   style: TextStyle(
                     fontSize: 15.0,
                   ),
                 ),
                 SizedBox(height: 20.0,),
                 Text(
-                  '2. Turn ???',
+                  '2.  Pace yourself as even as possible on each quarter mile',
                   style: TextStyle(
                     fontSize: 15.0,
                   ),
                 ),
                 SizedBox(height: 20.0,),
                 Text(
-                  '3. Turn ???',
+                  '3. Now measure the time for the your Magic Mile',
                   style: TextStyle(
                     fontSize: 15.0,
                   ),
                 ),
                 SizedBox(height: 20.0,),
                 Text(
-                  '4. Turn ???',
+                  '4. Run about as hard as you could run for one mile  ',
                   style: TextStyle(
                     fontSize: 15.0,
                   ),
                 ),
                 SizedBox(height: 40.0,),
                 Text(
-                  'Enter how long it took, in seconds',
+                  'Enter how long it took, in minutes',
                   style: TextStyle(
                     fontSize: 15.0,
                   ),
@@ -105,7 +129,7 @@ class _MeasurementScreenState extends State<MeasurementScreen> {
                   ),
                   child: TextField(
                       decoration: new InputDecoration(
-                        hintText: "Enter in seconds",
+                        hintText: "Enter in minutes",
                       ),
                       keyboardType: TextInputType.number,
                       onSubmitted: (String str) {
