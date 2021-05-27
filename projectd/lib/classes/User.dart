@@ -90,8 +90,8 @@ class User {
       ['restingHeartRate']
           .toString();
 
-      this.measurement = '00:00:00';
-      this.goal = '00:00:00';
+      this.measurement = measurement!= null ? measurement : '00:00:00';
+      this.goal = goal!= null ? goal : '00:00:00';
 
       //Calculate weekly resting heartrate
       this.restheartrateweek =

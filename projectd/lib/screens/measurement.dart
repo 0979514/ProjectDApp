@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projectd/classes/User.dart';
 
 class MeasurementScreen extends StatefulWidget {
   const MeasurementScreen({Key key}) : super(key: key);
@@ -18,6 +19,23 @@ class _MeasurementScreenState extends State<MeasurementScreen> {
     int secondsminute = seconds-(seconds%60);
     String minutes = (secondsminute / 60).toString();
     return minutes;
+  }
+
+  void updatePace(String pace) async{
+    User user = User(measurement: pace);
+    await user.GetData();
+
+    Navigator.pop(context, {
+      'name' : user.name,
+      'age' : user.age,
+      'gender' : user.gender,
+      'avatar' : user.avatar,
+      'restheartrate' : user.restheartrate,
+      'restheartrateweek' : user.restheartrateweek,
+      'sleepscore' : user.sleepscore,
+      'measurement' : user.measurement,
+      'goal' : user.goal
+    });
   }
 
   @override
@@ -104,7 +122,10 @@ class _MeasurementScreenState extends State<MeasurementScreen> {
               SizedBox(height: 10.0),
               Text("${GetMinute(answer)} minutes and ${int.parse(answer)%60}.0 seconds"),
               SizedBox(height: 10.0),
-
+              FlatButton(
+                  color: Colors.blue,
+                  onPressed: (){updatePace('04:00:00');},
+                  child: Text('Update current pace')),
             ],
           ),
         ),
