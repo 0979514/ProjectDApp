@@ -50,6 +50,30 @@ class _ChooseGoalScreenState extends State<ChooseGoalScreen> {
     print('$dir/$filename');
   }
 
+  void _showAlertDialog() {
+    Widget okButton = FlatButton(
+      child: Text("OK"),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
+
+    AlertDialog alert = AlertDialog(
+      title: Text("Error"),
+      content: Text("Invalid/incorrect data"),
+      actions: [
+        okButton,
+      ],
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     if (phase == "pickDate") {
@@ -76,7 +100,7 @@ class _ChooseGoalScreenState extends State<ChooseGoalScreen> {
                       showDatePicker(
                               context: context,
                               initialDate: DateTime.now(),
-                              firstDate: DateTime(2001),
+                              firstDate: DateTime.now(),
                               lastDate: DateTime(2022))
                           .then((date) {
                         setState(() {
@@ -102,6 +126,9 @@ class _ChooseGoalScreenState extends State<ChooseGoalScreen> {
                       if (_date != null) {
                         phase = "pickHours";
                         publishDate();
+                        setState(() {});
+                      } else {
+                        _showAlertDialog();
                         setState(() {});
                       }
                     },
@@ -160,8 +187,14 @@ class _ChooseGoalScreenState extends State<ChooseGoalScreen> {
                     RaisedButton(
                       child: Text('Finish'),
                       onPressed: () {
-                        if (_hoursAWeek != null) {
+                        if (_hoursAWeek < 64 &&
+                            _hoursAWeek > 1 &&
+                            _hoursAWeek != 0) {
+                          phase = "pickDate";
                           Navigator.pushNamed(context, "/");
+                        } else {
+                          _showAlertDialog();
+                          setState(() {});
                         }
                       },
                     )
