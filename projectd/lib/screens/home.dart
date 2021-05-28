@@ -98,7 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(width: 5.0,),
                   Expanded(
                     flex: 6,
-                    child: Text("Heartrate",
+                    child: Text("Resting Heartrate",
                         style: TextStyle(
                           color: Colors.black,
                           letterSpacing: 1.0,
@@ -230,6 +230,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           'measurement' : update['measurement'],
                           'goal' : update['goal']
                         };
+                        if (data['measurement'] != '00:00:00')
+                          phase = '1';
+                        else
+                          phase = '0';
                       });
                     },
                     child: Text('Set current pace',
@@ -323,7 +327,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(width: 5.0,),
                   Expanded(
                     flex: 6,
-                    child: Text("Heartrate",
+                    child: Text("Resting Heartrate",
                         style: TextStyle(
                           color: Colors.black,
                           letterSpacing: 1.0,
@@ -441,8 +445,25 @@ class _HomeScreenState extends State<HomeScreen> {
               Center(
                 child: FlatButton(
                     color: Colors.blue,
-                    onPressed: (){
-                      Navigator.pushNamed(context, '/measurement');
+                    onPressed: () async {
+                      dynamic update = await Navigator.pushNamed(context, '/measurement');
+                      setState(() {
+                        data = {
+                          'name' : update['name'],
+                          'age' : update['age'],
+                          'gender' : update['gender'],
+                          'avatar' : update['avatar'],
+                          'restheartrate' : update['restheartrate'],
+                          'restheartrateweek' : update['restheartrateweek'],
+                          'sleepscore' : update['sleepscore'],
+                          'measurement' : update['measurement'],
+                          'goal' : update['goal']
+                        };
+                        if (data['measurement'] != '00:00:00')
+                          phase = '1';
+                        else
+                          phase = '0';
+                      });
                     },
                     child: Text('Set current pace',
                         style: TextStyle(
@@ -561,7 +582,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(width: 5.0,),
                   Expanded(
                     flex: 6,
-                    child: Text("Heartrate",
+                    child: Text("Resting Heartrate",
                         style: TextStyle(
                           color: Colors.black,
                           letterSpacing: 1.0,
@@ -812,7 +833,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(width: 5.0,),
                   Expanded(
                     flex: 6,
-                    child: Text("Heartrate",
+                    child: Text("Resting Heartrate",
                         style: TextStyle(
                           color: Colors.black,
                           letterSpacing: 1.0,
