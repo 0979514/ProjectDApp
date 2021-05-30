@@ -80,7 +80,7 @@ class _MeasurementScreenState extends State<MeasurementScreen> {
                 ),
                 SizedBox(height: 20.0,),
                 Text(
-                  '3. Run about as hard as you could run for one mile    ',
+                  '3. Run about as hard as you can for one mile               ',
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     fontSize: 15.0,
