@@ -496,7 +496,19 @@ class _HomeScreenState extends State<HomeScreen> {
               Center(
                 child: FlatButton(
                     color: Colors.blue,
-                    onPressed: (){},
+                    onPressed: (){
+                      Navigator.pushNamed(context, '/goal', arguments: {
+                        'name' : data['name'],
+                        'age' : data['age'],
+                        'gender' : data['gender'],
+                        'avatar' : data['avatar'],
+                        'restheartrate' : data['restheartrate'],
+                        'restheartrateweek' : data['restheartrateweek'],
+                        'sleepscore' : data['sleepscore'],
+                        'measurement' : data['measurement'],
+                        'goal' : data['goal']
+                      } );
+                    },
                     child: Text('Set Goal')),
               ),
             ],

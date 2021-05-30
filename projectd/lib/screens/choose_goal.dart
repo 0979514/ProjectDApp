@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projectd/classes/User.dart';
 
 class ChooseGoalScreen extends StatefulWidget {
   const ChooseGoalScreen({Key key}) : super(key: key);
@@ -8,8 +9,20 @@ class ChooseGoalScreen extends StatefulWidget {
 }
 
 class _ChooseGoalScreenState extends State<ChooseGoalScreen> {
+
+  Map data = {};
+
+
   @override
   Widget build(BuildContext context) {
-    return Container();
+
+    data = data.isNotEmpty ? data : ModalRoute.of(context).settings.arguments;
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Choose Goal"),
+      ),
+      body: Text(data['measurement']),
+    );
   }
 }
