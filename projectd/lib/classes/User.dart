@@ -13,15 +13,19 @@ class User {
   String restheartrate;
   String restheartrateweek;
   String sleepscore;
+  String measurement;
+  String goal;
 
   User(
       {this.name,
-      this.age,
-      this.gender,
-      this.avatar,
-      this.restheartrate,
-      this.restheartrateweek,
-      this.sleepscore});
+        this.age,
+        this.gender,
+        this.avatar,
+        this.restheartrate,
+        this.restheartrateweek,
+        this.sleepscore,
+        this.measurement,
+        this.goal});
 
   //Get userdata
   Future<void> GetData() async {
@@ -61,18 +65,18 @@ class User {
 
       for (int i = 0; i < 7; i++) {
         total += heartratedata['activities-heart'][i]['value']
-                    ['restingHeartRate'] !=
-                null
+        ['restingHeartRate'] !=
+            null
             ? heartratedata['activities-heart'][i]['value']['restingHeartRate']
             : 0;
         daysHeartrateRecorded += heartratedata['activities-heart'][i]['value']
-                    ['restingHeartRate'] !=
-                null
+        ['restingHeartRate'] !=
+            null
             ? 1
             : 0;
         lastDayRecorded = heartratedata['activities-heart'][i]['value']
-                    ['restingHeartRate'] !=
-                null
+        ['restingHeartRate'] !=
+            null
             ? i
             : lastDayRecorded;
       }
@@ -83,8 +87,11 @@ class User {
       this.gender = data['user']['gender'];
       this.avatar = data['user']['avatar150'];
       this.restheartrate = heartratedata['activities-heart'][6]['value']
-              ['restingHeartRate']
+      ['restingHeartRate']
           .toString();
+
+      this.measurement = measurement!= null ? measurement : '00:00:00';
+      this.goal = goal!= null ? goal : '00:00:00';
 
       //Calculate weekly resting heartrate
       this.restheartrateweek =
@@ -98,6 +105,9 @@ class User {
       this.sleepscore = sleepscore < 10
           ? sleepscore.toString().substring(0, 3)
           : (10 - (sleepscore - 10)).toString().substring(0, 3);
+
+
+
     } catch (e) {
       print(e);
     }

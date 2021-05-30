@@ -1,6 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:projectd/classes/User.dart';
 
 class ChooseGoalScreen extends StatefulWidget {
   const ChooseGoalScreen({Key key}) : super(key: key);
@@ -49,6 +50,8 @@ DateTime getDay(int n) {
 }
 
 class _ChooseGoalScreenState extends State<ChooseGoalScreen> {
+  Map data = {};
+
   @override
   void initState() {
     super.initState();
