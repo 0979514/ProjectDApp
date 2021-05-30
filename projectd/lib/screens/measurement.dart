@@ -129,7 +129,12 @@ class _MeasurementScreenState extends State<MeasurementScreen> {
                 FlatButton(
                     color: Colors.blue,
                     onPressed: (){
-                      updatePace('04:00:00');
+                      //calculate marathon speed
+                      double pace = int.parse(answer)*1.3;
+                      pace = pace*26.21875;
+                      var date = new DateTime.fromMillisecondsSinceEpoch(pace.toInt() * 1000);
+                      answer = date.toString().substring(11, 19);
+                      updatePace(answer);
                       setState(() {
                         phase = 'loading';
                       });
