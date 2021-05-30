@@ -71,21 +71,21 @@ class _MeasurementScreenState extends State<MeasurementScreen> {
                 ),
                 SizedBox(height: 20.0,),
                 Text(
-                  '2. Turn ???',
+                  '2.  Pace yourself as even as possible on each quarter mile',
                   style: TextStyle(
                     fontSize: 15.0,
                   ),
                 ),
                 SizedBox(height: 20.0,),
                 Text(
-                  '3. Turn ???',
+                  '3. Now measure the time for the your Magic Mile',
                   style: TextStyle(
                     fontSize: 15.0,
                   ),
                 ),
                 SizedBox(height: 20.0,),
                 Text(
-                  '4. Turn ???',
+                  '4. Run about as hard as you could run for one mile  ',
                   style: TextStyle(
                     fontSize: 15.0,
                   ),
