@@ -92,8 +92,9 @@ class _ChooseGoalScreenState extends State<ChooseGoalScreen> {
   @override
   void initState() {
     super.initState();
-
+    _readGoal();
     _readDate();
+    _readhours();
   }
 
   void _showAlertDialog() {
@@ -272,6 +273,23 @@ class _ChooseGoalScreenState extends State<ChooseGoalScreen> {
                             _showAlertDialog();
                             setState(() {});
                           }
+                        },
+                      )
+                    ]),
+              ),
+              Expanded(
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      RaisedButton(
+                        child: Text('Back'),
+                        onPressed: () {
+                          phase = "pickGoal";
+                          if (_date != null) {
+                            _saveDate();
+                          }
+                          setState(() {});
                         },
                       )
                     ]),
