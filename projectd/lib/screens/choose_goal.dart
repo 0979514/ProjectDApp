@@ -8,7 +8,6 @@ class ChooseGoalScreen extends StatefulWidget {
   _ChooseGoalScreenState createState() => _ChooseGoalScreenState();
 }
 
-DateTime _goal;
 int _goalhour;
 int _goalminute;
 int _goalsecond;
@@ -33,12 +32,9 @@ _readDate() async {
 _readGoal() async {
   final prefs = await SharedPreferences.getInstance();
   try {
-    var hours = prefs.getInt('goal-hours');
-    var minutes = prefs.getInt('goal-minutes');
-    var seconds = prefs.getInt('goal-seconds');
-
-    _date = DateTime.fromMicrosecondsSinceEpoch(
-        (hours * 3600 + minutes * 60 + seconds) * 1000);
+    _goalhour = prefs.getInt('goal-hours');
+    _goalminute = prefs.getInt('goal-minutes');
+    _goalsecond = prefs.getInt('goal-seconds');
   } catch (e) {
     print("Reading went wrong");
   }
@@ -123,6 +119,8 @@ class _ChooseGoalScreenState extends State<ChooseGoalScreen> {
 
   @override
   Widget build(BuildContext context) {
+    data = data.isNotEmpty ? data : ModalRoute.of(context).settings.arguments;
+
     if (phase == "pickGoal") {
       return Scaffold(
           backgroundColor: Colors.white,
@@ -139,9 +137,11 @@ class _ChooseGoalScreenState extends State<ChooseGoalScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                    Text(_date == null
+                    Text(_goalhour == null &&
+                            _goalminute == null &&
+                            _goalsecond == null
                         ? 'Please enter the time you\'d like to achieve'
-                        : "Time: ${_goal.hour}:${_goal.minute}:${_goal.second}")
+                        : "Time: $_goalhour:$_goalminute:$_goalsecond")
                   ])),
               Expanded(
                   child: Row(
@@ -202,9 +202,27 @@ class _ChooseGoalScreenState extends State<ChooseGoalScreen> {
                       RaisedButton(
                         child: Text('Next'),
                         onPressed: () {
-                          if (_date != null) {
-                            phase = "pickDate";
-                            _saveGoal();
+                          print(data);
+
+                          var time = data['measurement'].split(":");
+                          var secondsMeasurement = int.parse(time[0]) * 3600 +
+                              int.parse(time[1]) * 60 +
+                              int.parse(time[2]);
+
+                          if (_goalhour != null &&
+                              _goalminute != null &&
+                              _goalsecond != null) {
+                            var secondsCur = _goalhour * 3600 +
+                                _goalminute * 60 +
+                                _goalsecond;
+                            if (secondsCur > secondsMeasurement) {
+                              Navigator.pop(context);
+                              phase = "pickGoal";
+                            } else {
+                              phase = "pickDate";
+                              setState(() {});
+                            }
+
                             setState(() {});
                           } else {
                             _showAlertDialog();
@@ -344,6 +362,7 @@ class _ChooseGoalScreenState extends State<ChooseGoalScreen> {
                           Navigator.pushNamed(context, "/");
                         } else {
                           _showAlertDialog();
+
                           setState(() {});
                         }
                       },

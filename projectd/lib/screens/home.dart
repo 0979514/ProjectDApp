@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key key}) : super(key: key);
@@ -7,14 +8,29 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
+var _goal;
+_readGoal() async {
+  final prefs = await SharedPreferences.getInstance();
+  try {
+    var hours = prefs.getInt('goal-hours');
+    var minutes = prefs.getInt('goal-minutes');
+    var seconds = prefs.getInt('goal-seconds');
+
+    _goal = DateTime.fromMicrosecondsSinceEpoch(
+        (hours * 3600 + minutes * 60 + seconds) * 1000);
+  } catch (e) {
+    print("Reading went wrong");
+  }
+}
+
 class _HomeScreenState extends State<HomeScreen> {
   Map data = {};
 
   String phase = '0';
-
   @override
   Widget build(BuildContext context) {
     data = data.isNotEmpty ? data : ModalRoute.of(context).settings.arguments;
+    _readGoal();
     print(data);
 
     if (phase == '0') {
@@ -785,7 +801,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 10.0,
               ),
               Center(
-                child: Text(data['goal'],
+                child: Text("${_goal.hour}:${_goal.minute}:${_goal.second}",
                     style: TextStyle(
                       color: Colors.red,
                       letterSpacing: 1.0,
