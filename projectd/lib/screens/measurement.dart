@@ -64,28 +64,32 @@ class _MeasurementScreenState extends State<MeasurementScreen> {
                   ),)),
                 SizedBox(height: 20.0,),
                 Text(
-                  '1. Warm up your body with a slow 5 - 10 minute run',
+                  '1. Warm up your body with a slow 5 - 10 minute run   ',
+                  textAlign: TextAlign.left,
                   style: TextStyle(
                     fontSize: 15.0,
                   ),
                 ),
                 SizedBox(height: 20.0,),
                 Text(
-                  '2. Turn ???',
+                  '2. Now measure the time for the Magic Mile                ',
+                  textAlign: TextAlign.left,
                   style: TextStyle(
                     fontSize: 15.0,
                   ),
                 ),
                 SizedBox(height: 20.0,),
                 Text(
-                  '3. Turn ???',
+                  '3. Run about as hard as you can for one mile               ',
+                  textAlign: TextAlign.left,
                   style: TextStyle(
                     fontSize: 15.0,
                   ),
                 ),
                 SizedBox(height: 20.0,),
                 Text(
-                  '4. Turn ???',
+                  '4. Pace yourself as even as possible on each quarter mile',
+                  textAlign: TextAlign.left,
                   style: TextStyle(
                     fontSize: 15.0,
                   ),
