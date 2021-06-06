@@ -8,16 +8,15 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-var _goal;
+var _goalhour = 0;
+var _goalminute = 0;
+var _goalsecond = 0;
 _readGoal() async {
   final prefs = await SharedPreferences.getInstance();
   try {
-    var hours = prefs.getInt('goal-hours');
-    var minutes = prefs.getInt('goal-minutes');
-    var seconds = prefs.getInt('goal-seconds');
-
-    _goal = DateTime.fromMicrosecondsSinceEpoch(
-        (hours * 3600 + minutes * 60 + seconds) * 1000);
+    _goalhour = prefs.getInt('goal-hours');
+    _goalminute = prefs.getInt('goal-minutes');
+    _goalsecond = prefs.getInt('goal-seconds');
   } catch (e) {
     print("Reading went wrong");
   }
@@ -801,7 +800,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 10.0,
               ),
               Center(
-                child: Text("${_goal.hour}:${_goal.minute}:${_goal.second}",
+                child: Text(
+                    "${_goalhour > 9 ? "" : "0"}$_goalhour:${_goalminute > 9 ? "" : "0"}$_goalminute:${_goalsecond > 9 ? "" : "0"}$_goalsecond",
                     style: TextStyle(
                       color: Colors.red,
                       letterSpacing: 1.0,
@@ -1067,7 +1067,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 10.0,
               ),
               Center(
-                child: Text(data['goal'],
+                child: Text(
+                    "${_goalhour > 9 ? "" : "0"}$_goalhour:${_goalminute > 9 ? "" : "0"}$_goalminute:${_goalsecond > 9 ? "" : "0"}$_goalsecond",
                     style: TextStyle(
                       color: Colors.red,
                       letterSpacing: 1.0,
