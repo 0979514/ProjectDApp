@@ -11,15 +11,26 @@ class HomeScreen extends StatefulWidget {
 var _goalhour = 0;
 var _goalminute = 0;
 var _goalsecond = 0;
+var _measurement = '0';
 _readGoal() async {
   final prefs = await SharedPreferences.getInstance();
   try {
     _goalhour = prefs.getInt('goal-hours');
     _goalminute = prefs.getInt('goal-minutes');
     _goalsecond = prefs.getInt('goal-seconds');
+    print(
+        "${_goalhour > 9 ? "" : "0"}$_goalhour:${_goalminute > 9 ? "" : "0"}$_goalminute:${_goalsecond > 9 ? "" : "0"}$_goalsecond");
   } catch (e) {
     print("Reading went wrong");
   }
+}
+
+_loadMeasurement() async {
+  final prefs = await SharedPreferences.getInstance();
+  try {
+    _measurement = prefs.getString("measurement");
+    print(_measurement);
+  } catch (e) {}
 }
 
 class _HomeScreenState extends State<HomeScreen> {
@@ -30,6 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     data = data.isNotEmpty ? data : ModalRoute.of(context).settings.arguments;
     _readGoal();
+    _loadMeasurement();
     print(data);
 
     if (phase == '0') {
@@ -235,7 +247,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 10.0,
               ),
               Center(
-                child: Text(data['measurement'],
+                child: Text(_measurement,
                     style: TextStyle(
                       color: Colors.red,
                       letterSpacing: 1.0,
@@ -260,7 +272,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           'measurement': update['measurement'],
                           'goal': update['goal']
                         };
-                        if (data['measurement'] != '00:00:00')
+                        if (_measurement != '00:00:00')
                           phase = '1';
                         else
                           phase = '0';
@@ -480,7 +492,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 10.0,
               ),
               Center(
-                child: Text(data['measurement'],
+                child: Text(_measurement,
                     style: TextStyle(
                       color: Colors.red,
                       letterSpacing: 1.0,
@@ -505,7 +517,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           'measurement': update['measurement'],
                           'goal': update['goal']
                         };
-                        if (data['measurement'] != '00:00:00')
+                        if (_measurement != '00:00:00')
                           phase = '1';
                         else
                           phase = '0';
@@ -533,7 +545,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 10.0,
               ),
               Center(
-                child: Text(data['goal'],
+                child: Text(
+                    "${_goalhour > 9 ? "" : "0"}$_goalhour:${_goalminute > 9 ? "" : "0"}$_goalminute:${_goalsecond > 9 ? "" : "0"}$_goalsecond",
                     style: TextStyle(
                       color: Colors.red,
                       letterSpacing: 1.0,
@@ -765,7 +778,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 10.0,
               ),
               Center(
-                child: Text(data['measurement'],
+                child: Text(_measurement,
                     style: TextStyle(
                       color: Colors.red,
                       letterSpacing: 1.0,
@@ -1032,7 +1045,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 10.0,
               ),
               Center(
-                child: Text(data['measurement'],
+                child: Text(_measurement,
                     style: TextStyle(
                       color: Colors.red,
                       letterSpacing: 1.0,

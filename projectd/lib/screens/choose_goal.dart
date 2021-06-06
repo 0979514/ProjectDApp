@@ -154,7 +154,7 @@ class _ChooseGoalScreenState extends State<ChooseGoalScreen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Container(
-                            width: 20,
+                            width: 40,
                             child: TextField(
                                 onChanged: (newtext) {
                                   _goalhour = int.parse(newtext);
@@ -167,7 +167,7 @@ class _ChooseGoalScreenState extends State<ChooseGoalScreen> {
                                 ))),
                         Text(":"),
                         Container(
-                            width: 20,
+                            width: 40,
                             child: TextField(
                                 onChanged: (newtext) {
                                   _goalminute = int.parse(newtext);
@@ -180,7 +180,7 @@ class _ChooseGoalScreenState extends State<ChooseGoalScreen> {
                                 ))),
                         Text(":"),
                         Container(
-                            width: 20,
+                            width: 40,
                             child: TextField(
                                 onChanged: (newtext) {
                                   _goalsecond = int.parse(newtext);
@@ -359,7 +359,10 @@ class _ChooseGoalScreenState extends State<ChooseGoalScreen> {
                             _hoursAWeek > 1 &&
                             _hoursAWeek != 0) {
                           phase = "pickGoal";
-                          Navigator.pushNamed(context, "/");
+                          Navigator.pop(context);
+                          _saveDate();
+                          _saveGoal();
+                          _saveHours();
                         } else {
                           _showAlertDialog();
 
