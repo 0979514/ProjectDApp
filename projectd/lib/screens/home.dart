@@ -159,7 +159,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: <Widget>[
                   Expanded(
                     flex: 6,
-                    child: Text("Points 0",
+                    child: Text("Points ${data['points']}",
                         style: TextStyle(
                           color: Colors.black,
                           letterSpacing: 1.0,
@@ -197,7 +197,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: Colors.grey[900],
               ),
               Center(
-                child: Text("Current marathon speed",
+                child: Text("Estimated Current Pace",
                     style: TextStyle(
                         color: Colors.black,
                         letterSpacing: 1.0,
@@ -228,7 +228,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           'restheartrateweek' : update['restheartrateweek'],
                           'sleepscore' : update['sleepscore'],
                           'measurement' : update['measurement'],
-                          'goal' : update['goal']
+                          'goal' : update['goal'],
+                          'points' : update['points']
                         };
                         if (data['measurement'] != '00:00:00')
                           phase = '1';
@@ -388,7 +389,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: <Widget>[
                   Expanded(
                     flex: 6,
-                    child: Text("Points 0",
+                    child: Text("Points ${data['points']}",
                         style: TextStyle(
                           color: Colors.black,
                           letterSpacing: 1.0,
@@ -426,7 +427,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: Colors.grey[900],
               ),
               Center(
-                child: Text("Current marathon speed",
+                child: Text("Estimated Current Pace",
                     style: TextStyle(
                         color: Colors.black,
                         letterSpacing: 1.0,
@@ -457,7 +458,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           'restheartrateweek' : update['restheartrateweek'],
                           'sleepscore' : update['sleepscore'],
                           'measurement' : update['measurement'],
-                          'goal' : update['goal']
+                          'goal' : update['goal'],
+                          'points' : update['points']
                         };
                         if (data['measurement'] != '00:00:00')
                           phase = '1';
@@ -506,7 +508,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         'restheartrateweek' : data['restheartrateweek'],
                         'sleepscore' : data['sleepscore'],
                         'measurement' : data['measurement'],
-                        'goal' : data['goal']
+                        'goal' : data['goal'],
+                        'points' : data['points']
                       } );
                     },
                     child: Text('Set Goal')),
@@ -655,7 +658,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: <Widget>[
                   Expanded(
                     flex: 6,
-                    child: Text("Points 0",
+                    child: Text("Points ${data['points']}",
                         style: TextStyle(
                           color: Colors.black,
                           letterSpacing: 1.0,
@@ -693,7 +696,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: Colors.grey[900],
               ),
               Center(
-                child: Text("Current marathon speed",
+                child: Text("Estimated Current Pace",
                     style: TextStyle(
                         color: Colors.black,
                         letterSpacing: 1.0,
@@ -712,8 +715,26 @@ class _HomeScreenState extends State<HomeScreen> {
               Center(
                 child: FlatButton(
                     color: Colors.blue,
-                    onPressed: (){
-                      Navigator.pushNamed(context, '/measurement');
+                    onPressed: () async {
+                      dynamic update = await Navigator.pushNamed(context, '/measurement');
+                      setState(() {
+                        data = {
+                          'name' : update['name'],
+                          'age' : update['age'],
+                          'gender' : update['gender'],
+                          'avatar' : update['avatar'],
+                          'restheartrate' : update['restheartrate'],
+                          'restheartrateweek' : update['restheartrateweek'],
+                          'sleepscore' : update['sleepscore'],
+                          'measurement' : update['measurement'],
+                          'goal' : update['goal'],
+                          'points' : update['points']
+                        };
+                        if (data['measurement'] != '00:00:00')
+                          phase = '1';
+                        else
+                          phase = '0';
+                      });
                     },
                     child: Text('Set current pace',
                         style: TextStyle(
@@ -753,7 +774,20 @@ class _HomeScreenState extends State<HomeScreen> {
 
                   FlatButton(
                       color: Colors.blue,
-                      onPressed: (){},
+                      onPressed: (){
+                        Navigator.pushNamed(context, '/goal', arguments: {
+                          'name' : data['name'],
+                          'age' : data['age'],
+                          'gender' : data['gender'],
+                          'avatar' : data['avatar'],
+                          'restheartrate' : data['restheartrate'],
+                          'restheartrateweek' : data['restheartrateweek'],
+                          'sleepscore' : data['sleepscore'],
+                          'measurement' : data['measurement'],
+                          'goal' : data['goal'],
+                          'points' : data['points']
+                        } );
+                      },
                       child: Text('Set Goal')),
                   FlatButton(
                       color: Colors.blue,
@@ -906,7 +940,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: <Widget>[
                   Expanded(
                     flex: 6,
-                    child: Text("Points 0",
+                    child: Text("Points ${data['points']}",
                         style: TextStyle(
                           color: Colors.black,
                           letterSpacing: 1.0,
@@ -944,7 +978,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: Colors.grey[900],
               ),
               Center(
-                child: Text("Current marathon speed",
+                child: Text("Estimated Current Pace",
                     style: TextStyle(
                         color: Colors.black,
                         letterSpacing: 1.0,

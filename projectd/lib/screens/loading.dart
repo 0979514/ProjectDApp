@@ -24,7 +24,8 @@ class _LoadingScreenState extends State<LoadingScreen> {
       'restheartrateweek' : user.restheartrateweek,
       'sleepscore' : user.sleepscore,
       'measurement' : user.measurement,
-      'goal' : user.goal
+      'goal' : user.goal,
+      'points' : user.points
     } );
 
   }
