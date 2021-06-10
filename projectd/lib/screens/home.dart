@@ -11,7 +11,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Map data = {};
 
-  String phase = '0';
+  String phase = '2';
 
   @override
   Widget build(BuildContext context) {
@@ -498,8 +498,8 @@ class _HomeScreenState extends State<HomeScreen> {
               Center(
                 child: FlatButton(
                     color: Colors.blue,
-                    onPressed: (){
-                      Navigator.pushNamed(context, '/goal', arguments: {
+                    onPressed: () async {
+                      dynamic update = await Navigator.pushNamed(context, '/goal', arguments: {
                         'name' : data['name'],
                         'age' : data['age'],
                         'gender' : data['gender'],
@@ -511,6 +511,26 @@ class _HomeScreenState extends State<HomeScreen> {
                         'goal' : data['goal'],
                         'points' : data['points']
                       } );
+
+                      //We updaten onze data met wat je terugkrijgt
+                      setState(() {
+                        data = {
+                          'name' : update['name'],
+                          'age' : update['age'],
+                          'gender' : update['gender'],
+                          'avatar' : update['avatar'],
+                          'restheartrate' : update['restheartrate'],
+                          'restheartrateweek' : update['restheartrateweek'],
+                          'sleepscore' : update['sleepscore'],
+                          'measurement' : update['measurement'],
+                          'goal' : update['goal'],
+                          'points' : update['points']
+                        };
+                        if (data['goal'] != '00:00:00')
+                          phase = '2';
+                        else
+                          phase = '1';
+                      });
                     },
                     child: Text('Set Goal')),
               ),
@@ -774,8 +794,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
                   FlatButton(
                       color: Colors.blue,
-                      onPressed: (){
-                        Navigator.pushNamed(context, '/goal', arguments: {
+                      onPressed: () async {
+                        dynamic update = await Navigator.pushNamed(context, '/goal', arguments: {
                           'name' : data['name'],
                           'age' : data['age'],
                           'gender' : data['gender'],
@@ -787,11 +807,33 @@ class _HomeScreenState extends State<HomeScreen> {
                           'goal' : data['goal'],
                           'points' : data['points']
                         } );
+
+                        //We updaten onze data met wat je terugkrijgt
+                        setState(() {
+                          data = {
+                            'name' : update['name'],
+                            'age' : update['age'],
+                            'gender' : update['gender'],
+                            'avatar' : update['avatar'],
+                            'restheartrate' : update['restheartrate'],
+                            'restheartrateweek' : update['restheartrateweek'],
+                            'sleepscore' : update['sleepscore'],
+                            'measurement' : update['measurement'],
+                            'goal' : update['goal'],
+                            'points' : update['points']
+                          };
+                          if (data['goal'] != '00:00:00')
+                            phase = '2';
+                          else
+                            phase = '1';
+                        });
                       },
                       child: Text('Set Goal')),
                   FlatButton(
                       color: Colors.blue,
-                      onPressed: (){},
+                      onPressed: (){
+                        Navigator.pushNamed(context, '/chooseworkout');
+                      },
                       child: Text('Set Workout')),
                 ],
               ),
