@@ -66,7 +66,6 @@ _saveGoal() async {
   try {
     prefs.setInt('goal-hours', _goalhour);
     prefs.setInt('goal-minutes', _goalminute);
-    prefs.setInt('goal-seconds', _goalsecond);
   } catch (e) {}
 }
 
@@ -143,57 +142,7 @@ class _ChooseGoalScreenState extends State<ChooseGoalScreen> {
                         ? 'Please enter the time you\'d like to achieve'
                         : "Time: $_goalhour:$_goalminute:$_goalsecond")
                   ])),
-              Expanded(
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                    Expanded(
-                        child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Container(
-                            width: 40,
-                            child: TextField(
-                                onChanged: (newtext) {
-                                  _goalhour = int.parse(newtext);
-                                },
-                                textAlign: TextAlign.left,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintStyle: TextStyle(color: Colors.grey),
-                                ))),
-                        Text(":"),
-                        Container(
-                            width: 40,
-                            child: TextField(
-                                onChanged: (newtext) {
-                                  _goalminute = int.parse(newtext);
-                                },
-                                textAlign: TextAlign.left,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintStyle: TextStyle(color: Colors.grey),
-                                ))),
-                        Text(":"),
-                        Container(
-                            width: 40,
-                            child: TextField(
-                                onChanged: (newtext) {
-                                  _goalsecond = int.parse(newtext);
-                                },
-                                textAlign: TextAlign.left,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintStyle: TextStyle(color: Colors.grey),
-                                )))
-                      ],
-                    ))
-                  ])),
+              Expanded(),
               Expanded(
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,

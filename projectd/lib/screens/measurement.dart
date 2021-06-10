@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:projectd/classes/User.dart';
@@ -57,25 +55,6 @@ class _MeasurementScreenState extends State<MeasurementScreen> {
   }
 
   String answer = '0';
-  _loadMeasurement() async {
-    final prefs = await SharedPreferences.getInstance();
-    try {
-      var x = prefs.getString("measurement").split(":");
-      answer =
-          ((int.parse(x[0]) * 3600 + int.parse(x[1]) * 60 + int.parse(x[2])) /
-                  26.21875 /
-                  1.3)
-              .toString();
-    } catch (e) {
-      print("loading went wrong");
-    }
-  }
-
-  @override
-  Void initState() {
-    super.initState();
-    _loadMeasurement();
-  }
 
   @override
   Widget build(BuildContext context) {

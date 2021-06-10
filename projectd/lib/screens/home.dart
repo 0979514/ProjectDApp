@@ -8,33 +8,38 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-var _goalhour = 0;
-var _goalminute = 0;
-var _goalsecond = 0;
-var _measurement = '0';
-_readGoal() async {
-  final prefs = await SharedPreferences.getInstance();
-  try {
-    _goalhour = prefs.getInt('goal-hours');
-    _goalminute = prefs.getInt('goal-minutes');
-    _goalsecond = prefs.getInt('goal-seconds');
-    print(
-        "goal = ${_goalhour > 9 ? "" : "0"}$_goalhour:${_goalminute > 9 ? "" : "0"}$_goalminute:${_goalsecond > 9 ? "" : "0"}$_goalsecond");
-  } catch (e) {
-    print("Reading went wrong");
-  }
-}
-
-_loadMeasurement() async {
-  final prefs = await SharedPreferences.getInstance();
-  try {
-    _measurement = prefs.getString("measurement");
-    print("measurement = $_measurement");
-  } catch (e) {}
-}
-
 class _HomeScreenState extends State<HomeScreen> {
   Map data = {};
+
+  var _goalhour = 0;
+  var _goalminute = 0;
+  var _goalsecond = 0;
+
+  _readGoal() async {
+    final prefs = await SharedPreferences.getInstance();
+    try {
+      _goalhour = prefs.getInt('goal-hours');
+      _goalminute = prefs.getInt('goal-minutes');
+      _goalsecond = prefs.getInt('goal-seconds');
+      print(
+          "goal = ${_goalhour > 9 ? "" : "0"}$_goalhour:${_goalminute > 9 ? "" : "0"}$_goalminute:${_goalsecond > 9 ? "" : "0"}$_goalsecond");
+    } catch (e) {
+      print("Reading went wrong");
+    }
+  }
+
+  _loadMeasurement() async {
+    final prefs = await SharedPreferences.getInstance();
+    try {
+      data['measurement'] = prefs.getString("measurement");
+      if (data['measurement'] == "") {
+        data['measurement'] = "00:00:00";
+      }
+      print("measurement = $data['measurement']");
+    } catch (e) {
+      data['measurement'] = "00:00:00";
+    }
+  }
 
   String phase = '0';
   @override
@@ -50,9 +55,15 @@ class _HomeScreenState extends State<HomeScreen> {
     _readGoal();
     _loadMeasurement();
     print(data);
-    if (_measurement != '0') {
+
+    if (data['measurement'] == '0') {
+      setState(() {});
+    }
+
+    if (data['measurement'] != '00:00:00') {
       phase = '1';
     }
+
     if (phase == '0') {
       return Scaffold(
         backgroundColor: Colors.white,
@@ -256,7 +267,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 10.0,
               ),
               Center(
-                child: Text(_measurement,
+                child: Text(data['measurement'],
                     style: TextStyle(
                       color: Colors.red,
                       letterSpacing: 1.0,
@@ -281,7 +292,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           'measurement': update['measurement'],
                           'goal': update['goal']
                         };
-                        if (_measurement != '00:00:00')
+                        if (data['measurement'] != '00:00:00')
                           phase = '1';
                         else
                           phase = '0';
@@ -501,7 +512,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 10.0,
               ),
               Center(
-                child: Text(_measurement,
+                child: Text(data['measurement'],
                     style: TextStyle(
                       color: Colors.red,
                       letterSpacing: 1.0,
@@ -526,7 +537,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           'measurement': update['measurement'],
                           'goal': update['goal']
                         };
-                        if (_measurement != '00:00:00')
+                        if (data['measurement'] != '00:00:00')
                           phase = '1';
                         else
                           phase = '0';
@@ -787,7 +798,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 10.0,
               ),
               Center(
-                child: Text(_measurement,
+                child: Text(data['measurement'],
                     style: TextStyle(
                       color: Colors.red,
                       letterSpacing: 1.0,
@@ -1054,7 +1065,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 10.0,
               ),
               Center(
-                child: Text(_measurement,
+                child: Text(data['measurement'],
                     style: TextStyle(
                       color: Colors.red,
                       letterSpacing: 1.0,
