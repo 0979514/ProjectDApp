@@ -38,12 +38,21 @@ class _HomeScreenState extends State<HomeScreen> {
 
   String phase = '0';
   @override
+  void initState() {
+    super.initState();
+    _readGoal();
+    _loadMeasurement();
+  }
+
+  @override
   Widget build(BuildContext context) {
     data = data.isNotEmpty ? data : ModalRoute.of(context).settings.arguments;
     _readGoal();
     _loadMeasurement();
     print(data);
-
+    if (_measurement != '0') {
+      phase = '1';
+    }
     if (phase == '0') {
       return Scaffold(
         backgroundColor: Colors.white,

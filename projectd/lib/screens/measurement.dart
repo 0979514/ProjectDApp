@@ -12,36 +12,40 @@ class MeasurementScreen extends StatefulWidget {
   _MeasurementScreenState createState() => _MeasurementScreenState();
 }
 
-String _formatTimeString(String s) {
-  if (s.substring(0, 1) == '0') {
-    return s.substring(1);
-  }
-  return s;
-}
-
-_loadMeasurement() async {
-  final prefs = await SharedPreferences.getInstance();
-  try {
-    measurement = prefs.getString("measurement");
-    if (measurement == "") measurement = '0';
-  } catch (e) {
-    print("loading went wrong");
-  }
-}
-
-var measurement;
-_saveMeasurement(String s) async {
-  final prefs = await SharedPreferences.getInstance();
-  try {
-    prefs.setString("measurement", s);
-    print("saved : $s");
-  } catch (e) {
-    print("saving went wrong");
-  }
-}
-
 class _MeasurementScreenState extends State<MeasurementScreen> {
   final TextEditingController tcontroller = new TextEditingController();
+
+  _saveMeasurement(String s) async {
+    final prefs = await SharedPreferences.getInstance();
+    try {
+      prefs.setString("measurement", s);
+      print("saved : $s");
+    } catch (e) {
+      print("saving went wrong");
+    }
+  }
+
+  void updatePace(String pace) async {
+    try {
+      User user = User(measurement: pace);
+      await user.GetData();
+      _saveMeasurement(pace);
+
+      Navigator.pop(context, {
+        'name': user.name,
+        'age': user.age,
+        'gender': user.gender,
+        'avatar': user.avatar,
+        'restheartrate': user.restheartrate,
+        'restheartrateweek': user.restheartrateweek,
+        'sleepscore': user.sleepscore,
+        'measurement': user.measurement,
+        'goal': user.goal,
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
 
   String phase = 'notloading';
 
@@ -52,9 +56,29 @@ class _MeasurementScreenState extends State<MeasurementScreen> {
     return minutes;
   }
 
+  String answer = '0';
+  _loadMeasurement() async {
+    final prefs = await SharedPreferences.getInstance();
+    try {
+      var x = prefs.getString("measurement").split(":");
+      answer =
+          ((int.parse(x[0]) * 3600 + int.parse(x[1]) * 60 + int.parse(x[2])) /
+                  26.21875 /
+                  1.3)
+              .toString();
+    } catch (e) {
+      print("loading went wrong");
+    }
+  }
+
+  @override
+  Void initState() {
+    super.initState();
+    _loadMeasurement();
+  }
+
   @override
   Widget build(BuildContext context) {
-    _loadMeasurement();
     if (phase == 'notloading') {
       return Scaffold(
         appBar: AppBar(
@@ -141,31 +165,35 @@ class _MeasurementScreenState extends State<MeasurementScreen> {
                       onSubmitted: (String str) {
                         setState(() {
                           //Er zijn nog bugs met invoer bijv crash als je . , of andere tekens erin zet
-                          measurement = str != '' ? str : '0';
-                          print(measurement);
+                          answer = str != '' ? str : '0';
+                          print("setting state, answer = $answer");
                         });
                         tcontroller.text = "";
                       },
                       controller: tcontroller),
                 ),
                 SizedBox(height: 20.0),
-                Text("So your time is: $measurement seconds?"),
+                Text("So your time is: $answer seconds?"),
                 SizedBox(height: 20.0),
                 Text("Confirm that your time is"),
                 SizedBox(height: 10.0),
                 Text(
-                    "${GetMinute(measurement)} minutes and ${int.parse(measurement) % 60}.0 seconds"),
+                    "${GetMinute(answer)} minutes and ${int.parse(answer) % 60}.0 seconds"),
                 SizedBox(height: 10.0),
                 FlatButton(
                     color: Colors.blue,
                     onPressed: () {
-                      print("measurement = $measurement");
                       //calculate marathon speed
+                      print("answer = $answer");
+                      double pace = int.parse(answer) * 1.3;
 
-                      _saveMeasurement(measurement);
-                      Navigator.pop(
-                        context,
-                      );
+                      pace = pace * 26.21875;
+
+                      var date = new DateTime.fromMillisecondsSinceEpoch(
+                          pace.toInt() * 1000);
+                      answer = date.toString().substring(11, 19);
+                      print("answerpressed = $answer");
+                      updatePace(answer);
                       setState(() {
                         phase = 'loading';
                       });
