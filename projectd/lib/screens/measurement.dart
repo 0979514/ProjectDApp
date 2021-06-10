@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:projectd/classes/User.dart';
@@ -10,23 +12,33 @@ class MeasurementScreen extends StatefulWidget {
   _MeasurementScreenState createState() => _MeasurementScreenState();
 }
 
+String _formatTimeString(String s) {
+  if (s.substring(0, 1) == '0') {
+    return s.substring(1);
+  }
+  return s;
+}
+
 _loadMeasurement() async {
   final prefs = await SharedPreferences.getInstance();
   try {
     measurement = prefs.getString("measurement");
-  } catch (e) {}
+    if (measurement == "") measurement = '0';
+  } catch (e) {
+    print("loading went wrong");
+  }
 }
 
+var measurement;
 _saveMeasurement(String s) async {
   final prefs = await SharedPreferences.getInstance();
   try {
     prefs.setString("measurement", s);
+    print("saved : $s");
   } catch (e) {
     print("saving went wrong");
   }
 }
-
-var measurement = '0';
 
 class _MeasurementScreenState extends State<MeasurementScreen> {
   final TextEditingController tcontroller = new TextEditingController();
@@ -130,9 +142,9 @@ class _MeasurementScreenState extends State<MeasurementScreen> {
                         setState(() {
                           //Er zijn nog bugs met invoer bijv crash als je . , of andere tekens erin zet
                           measurement = str != '' ? str : '0';
+                          print(measurement);
                         });
                         tcontroller.text = "";
-                        GetMinute(measurement);
                       },
                       controller: tcontroller),
                 ),

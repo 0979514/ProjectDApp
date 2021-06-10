@@ -19,7 +19,7 @@ _readGoal() async {
     _goalminute = prefs.getInt('goal-minutes');
     _goalsecond = prefs.getInt('goal-seconds');
     print(
-        "${_goalhour > 9 ? "" : "0"}$_goalhour:${_goalminute > 9 ? "" : "0"}$_goalminute:${_goalsecond > 9 ? "" : "0"}$_goalsecond");
+        "goal = ${_goalhour > 9 ? "" : "0"}$_goalhour:${_goalminute > 9 ? "" : "0"}$_goalminute:${_goalsecond > 9 ? "" : "0"}$_goalsecond");
   } catch (e) {
     print("Reading went wrong");
   }
@@ -29,7 +29,7 @@ _loadMeasurement() async {
   final prefs = await SharedPreferences.getInstance();
   try {
     _measurement = prefs.getString("measurement");
-    print(_measurement);
+    print("measurement = $_measurement");
   } catch (e) {}
 }
 
