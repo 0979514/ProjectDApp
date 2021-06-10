@@ -1,3 +1,4 @@
+import 'package:projectd/classes/User.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 
@@ -8,36 +9,58 @@ class ChooseGoalScreen extends StatefulWidget {
   _ChooseGoalScreenState createState() => _ChooseGoalScreenState();
 }
 
-int _goalhour;
-int _goalminute;
-int _goalsecond;
+String _goal;
 DateTime _date;
 int _hoursAWeek;
 String phase = "pickGoal";
 bool loading = false;
 
+String formatDateToString(DateTime x) {
+  return "${x.year}/${x.month}/${x.day}";
+}
+
+String formatTimeToString(String x) {
+  var y = x.split(":");
+  return "${y[0].length == 1 ? "0" + y[0] : y[0]}:${y[1].length == 1 ? "0" + y[1] : y[1]}:00";
+}
+
 _readDate() async {
   final prefs = await SharedPreferences.getInstance();
   try {
-    var year = prefs.getInt('goal-year');
-    var month = prefs.getInt('goal-month');
-    var day = prefs.getInt('goal-day');
-    print("$year, $month, $day");
-    _date = DateTime(year, month, day);
+    var x = prefs.getString('goaldate').split("/");
+    if (x.length != 3)
+      _date = DateTime(int.parse(x[0]), int.parse(x[1]), int.parse(x[2]));
+    else
+      _date = null;
   } catch (e) {
     print("Reading went wrong");
+  }
+}
+
+_saveDate() async {
+  final prefs = await SharedPreferences.getInstance();
+  try {
+    prefs.setString('goaldate', formatDateToString(_date));
+    print(_date);
+  } catch (e) {
+    print("Saving went wrong");
   }
 }
 
 _readGoal() async {
   final prefs = await SharedPreferences.getInstance();
   try {
-    _goalhour = prefs.getInt('goal-hours');
-    _goalminute = prefs.getInt('goal-minutes');
-    _goalsecond = prefs.getInt('goal-seconds');
+    _goal = prefs.getString('goal');
   } catch (e) {
     print("Reading went wrong");
   }
+}
+
+_saveGoal() async {
+  final prefs = await SharedPreferences.getInstance();
+  try {
+    prefs.setString("goal", _goal);
+  } catch (e) {}
 }
 
 _readhours() async {
@@ -47,26 +70,6 @@ _readhours() async {
   } catch (e) {
     print("Reading went wrong");
   }
-}
-
-_saveDate() async {
-  final prefs = await SharedPreferences.getInstance();
-  try {
-    prefs.setInt('goal-year', _date.year);
-    prefs.setInt('goal-month', _date.month);
-    prefs.setInt('goal-day', _date.day);
-    print(_date);
-  } catch (e) {
-    print("Saving went wrong");
-  }
-}
-
-_saveGoal() async {
-  final prefs = await SharedPreferences.getInstance();
-  try {
-    prefs.setInt('goal-hours', _goalhour);
-    prefs.setInt('goal-minutes', _goalminute);
-  } catch (e) {}
 }
 
 _saveHours() async {
@@ -136,13 +139,25 @@ class _ChooseGoalScreenState extends State<ChooseGoalScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                    Text(_goalhour == null &&
-                            _goalminute == null &&
-                            _goalsecond == null
+                    Text(_goal == ""
                         ? 'Please enter the time you\'d like to achieve'
-                        : "Time: $_goalhour:$_goalminute:$_goalsecond")
+                        : "Time: ${formatTimeToString(data['goal'])}")
                   ])),
-              Expanded(),
+              Expanded(
+                child: RaisedButton(
+                    child: Text("Pick the time"),
+                    onPressed: () => showTimePicker(
+                                context: context,
+                                initialTime: TimeOfDay(hour: 0, minute: 0))
+                            .then((time) {
+                          setState(() {
+                            _goal = "${time.hour}:${time.minute}:00";
+                            data['goal'] = _goal;
+                            print("data = ${data['goal']}");
+                            print("_goal = $_goal");
+                          });
+                        })),
+              ),
               Expanded(
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -151,22 +166,30 @@ class _ChooseGoalScreenState extends State<ChooseGoalScreen> {
                       RaisedButton(
                         child: Text('Next'),
                         onPressed: () {
-                          print(data);
-
                           var time = data['measurement'].split(":");
                           var secondsMeasurement = int.parse(time[0]) * 3600 +
                               int.parse(time[1]) * 60 +
                               int.parse(time[2]);
 
-                          if (_goalhour != null &&
-                              _goalminute != null &&
-                              _goalsecond != null) {
-                            var secondsCur = _goalhour * 3600 +
-                                _goalminute * 60 +
-                                _goalsecond;
+                          if (_goal != "") {
+                            var secondsCur =
+                                int.parse(_goal.split(":")[0]) * 3600 +
+                                    int.parse(_goal.split(":")[1]) * 60;
+
                             if (secondsCur > secondsMeasurement) {
-                              Navigator.pop(context);
-                              phase = "pickGoal";
+                              _saveGoal();
+                              Navigator.pop(context, {
+                                'name': data['name'],
+                                'age': data['age'],
+                                'gender': data['gender'],
+                                'avatar': data['avatar'],
+                                'restheartrate': data['restheartrate'],
+                                'restheartrateweek': data['restheartrateweek'],
+                                'sleepscore': data['sleepscore'],
+                                'measurement': data['measurement'],
+                                'goal': _goal,
+                                'points': data['points']
+                              });
                             } else {
                               phase = "pickDate";
                               setState(() {});
@@ -308,10 +331,21 @@ class _ChooseGoalScreenState extends State<ChooseGoalScreen> {
                             _hoursAWeek > 1 &&
                             _hoursAWeek != 0) {
                           phase = "pickGoal";
-                          Navigator.pop(context);
                           _saveDate();
                           _saveGoal();
                           _saveHours();
+                          Navigator.pop(context, {
+                            'name': data['name'],
+                            'age': data['age'],
+                            'gender': data['gender'],
+                            'avatar': data['avatar'],
+                            'restheartrate': data['restheartrate'],
+                            'restheartrateweek': data['restheartrateweek'],
+                            'sleepscore': data['sleepscore'],
+                            'measurement': data['measurement'],
+                            'goal': _goal,
+                            'points': data['points']
+                          });
                         } else {
                           _showAlertDialog();
 

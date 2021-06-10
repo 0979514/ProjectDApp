@@ -11,21 +11,9 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   Map data = {};
 
-  var _goalhour = 0;
-  var _goalminute = 0;
-  var _goalsecond = 0;
-
-  _readGoal() async {
-    final prefs = await SharedPreferences.getInstance();
-    try {
-      _goalhour = prefs.getInt('goal-hours');
-      _goalminute = prefs.getInt('goal-minutes');
-      _goalsecond = prefs.getInt('goal-seconds');
-      print(
-          "goal = ${_goalhour > 9 ? "" : "0"}$_goalhour:${_goalminute > 9 ? "" : "0"}$_goalminute:${_goalsecond > 9 ? "" : "0"}$_goalsecond");
-    } catch (e) {
-      print("Reading went wrong");
-    }
+  String formatTimeToString(String x) {
+    var y = x.split(":");
+    return "${y[0].length == 1 ? "0" + y[0] : y[0]}:${y[1].length == 1 ? "0" + y[1] : y[1]}:00";
   }
 
   _loadMeasurement() async {
@@ -42,23 +30,12 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   String phase = '0';
-  @override
-  void initState() {
-    super.initState();
-    _readGoal();
-    _loadMeasurement();
-  }
 
   @override
   Widget build(BuildContext context) {
     data = data.isNotEmpty ? data : ModalRoute.of(context).settings.arguments;
-    _readGoal();
-    _loadMeasurement();
-    print(data);
 
-    if (data['measurement'] == '0') {
-      setState(() {});
-    }
+    print(data);
 
     if (data['measurement'] != '00:00:00') {
       phase = '1';
@@ -565,8 +542,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 10.0,
               ),
               Center(
-                child: Text(
-                    "${_goalhour > 9 ? "" : "0"}$_goalhour:${_goalminute > 9 ? "" : "0"}$_goalminute:${_goalsecond > 9 ? "" : "0"}$_goalsecond",
+                child: Text("${formatTimeToString(data['goal'])}",
                     style: TextStyle(
                       color: Colors.red,
                       letterSpacing: 1.0,
@@ -833,8 +809,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 10.0,
               ),
               Center(
-                child: Text(
-                    "${_goalhour > 9 ? "" : "0"}$_goalhour:${_goalminute > 9 ? "" : "0"}$_goalminute:${_goalsecond > 9 ? "" : "0"}$_goalsecond",
+                child: Text("${formatTimeToString(data['goal'])}",
                     style: TextStyle(
                       color: Colors.red,
                       letterSpacing: 1.0,
@@ -1100,8 +1075,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 10.0,
               ),
               Center(
-                child: Text(
-                    "${_goalhour > 9 ? "" : "0"}$_goalhour:${_goalminute > 9 ? "" : "0"}$_goalminute:${_goalsecond > 9 ? "" : "0"}$_goalsecond",
+                child: Text("${formatTimeToString(data['goal'])}",
                     style: TextStyle(
                       color: Colors.red,
                       letterSpacing: 1.0,

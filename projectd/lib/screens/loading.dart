@@ -15,12 +15,9 @@ class _LoadingScreenState extends State<LoadingScreen> {
     User user = User();
     await user.GetData();
     final prefs = await SharedPreferences.getInstance();
-    try {
-      prefs.getString("measurement");
-    } catch (e) {
+    if (prefs.getString("measurement") == null)
       prefs.setString("measurement", "00:00:00");
-    }
-
+    if (prefs.getString("goal") == null) prefs.setString("goal", "00:00:00");
     Navigator.pushReplacementNamed(context, '/home', arguments: {
       'name': user.name,
       'age': user.age,
@@ -30,7 +27,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
       'restheartrateweek': user.restheartrateweek,
       'sleepscore': user.sleepscore,
       'measurement': (prefs.getString("measurement")),
-      'goal': user.goal
+      'goal': prefs.getString("goal")
     });
   }
 
