@@ -11,7 +11,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Map data = {};
 
-  String phase = '3';
+  String phase = '0';
 
   @override
   Widget build(BuildContext context) {
