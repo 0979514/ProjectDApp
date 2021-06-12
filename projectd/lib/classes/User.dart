@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
 import "package:yaml/yaml.dart";
@@ -20,16 +19,15 @@ class User {
 
   User(
       {this.name,
-        this.age,
-        this.gender,
-        this.avatar,
-        this.restheartrate,
-        this.restheartrateweek,
-        this.sleepscore,
-        this.measurement,
-        this.goal,
-        this.points
-      });
+      this.age,
+      this.gender,
+      this.avatar,
+      this.restheartrate,
+      this.restheartrateweek,
+      this.sleepscore,
+      this.measurement,
+      this.goal,
+      this.points});
 
   //Get userdata
   Future<void> GetData() async {
@@ -56,6 +54,7 @@ class User {
       Response response4 = await get(
           Uri.parse("https://api.fitbit.com/1/user/-/sleep/goal.json"),
           headers: {"Authorization": "Bearer $bearer"});
+
       //Data in maps
       Map data = jsonDecode(response.body);
       Map heartratedata = jsonDecode(response2.body);
@@ -69,18 +68,18 @@ class User {
 
       for (int i = 0; i < 7; i++) {
         total += heartratedata['activities-heart'][i]['value']
-        ['restingHeartRate'] !=
-            null
+                    ['restingHeartRate'] !=
+                null
             ? heartratedata['activities-heart'][i]['value']['restingHeartRate']
             : 0;
         daysHeartrateRecorded += heartratedata['activities-heart'][i]['value']
-        ['restingHeartRate'] !=
-            null
+                    ['restingHeartRate'] !=
+                null
             ? 1
             : 0;
         lastDayRecorded = heartratedata['activities-heart'][i]['value']
-        ['restingHeartRate'] !=
-            null
+                    ['restingHeartRate'] !=
+                null
             ? i
             : lastDayRecorded;
       }
@@ -91,12 +90,20 @@ class User {
       this.gender = data['user']['gender'];
       this.avatar = data['user']['avatar150'];
       this.restheartrate = heartratedata['activities-heart'][6]['value']
-      ['restingHeartRate']
+              ['restingHeartRate']
           .toString();
+      for (int i = 6; i >= 0; i--) {
+        this.restheartrate = heartratedata['activities-heart'][i]['value']
+                ['restingHeartRate']
+            .toString();
+        if (this.restheartrate != "null") {
+          break;
+        }
+      }
 
-      this.measurement = measurement!= null ? measurement : '00:00:00';
-      this.goal = goal!= null ? goal : '00:00:00';
-      this.points = points!= null ? points: 0;
+      this.measurement = measurement != null ? measurement : '00:00:00';
+      this.goal = goal != null ? goal : '00:00:00';
+      this.points = points != null ? points : 0;
 
       //Calculate weekly resting heartrate
       this.restheartrateweek =
