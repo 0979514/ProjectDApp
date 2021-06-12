@@ -119,7 +119,7 @@ class _ChooseGoalScreenState extends State<ChooseGoalScreen> {
 
     AlertDialog alert = AlertDialog(
       title: Text("Error"),
-      content: Text("goal has to be above 2 hours"),
+      content: Text("This goal is not possible"),
       actions: [
         okButton,
       ],
@@ -155,7 +155,7 @@ class _ChooseGoalScreenState extends State<ChooseGoalScreen> {
                       children: <Widget>[
                     Text(_goal == ""
                         ? 'Please enter the time you\'d like to achieve'
-                        : "Time: ${formatTimeToString(data['goal'])}")
+                        : "Time picked for goal: ${formatTimeToString(data['goal'])}")
                   ])),
               Expanded(
                 child: RaisedButton(
@@ -316,7 +316,7 @@ class _ChooseGoalScreenState extends State<ChooseGoalScreen> {
                   children: <Widget>[
                     Text(_hoursAWeek == null
                         ? "How many hours do you have a week?"
-                        : "Hours: ${_hoursAWeek}")
+                        : "Hours available per week: $_hoursAWeek")
                   ]),
             ),
             Expanded(
