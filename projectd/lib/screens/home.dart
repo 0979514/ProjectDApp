@@ -259,16 +259,16 @@ class _HomeScreenState extends State<HomeScreen> {
                           await Navigator.pushNamed(context, '/measurement');
                       setState(() {
                         data = {
-                          'name' : update['name'],
-                          'age' : update['age'],
-                          'gender' : update['gender'],
-                          'avatar' : update['avatar'],
-                          'restheartrate' : update['restheartrate'],
-                          'restheartrateweek' : update['restheartrateweek'],
-                          'sleepscore' : update['sleepscore'],
-                          'measurement' : update['measurement'],
-                          'goal' : update['goal'],
-                          'points' : update['points']
+                          'name': update['name'],
+                          'age': update['age'],
+                          'gender': update['gender'],
+                          'avatar': update['avatar'],
+                          'restheartrate': update['restheartrate'],
+                          'restheartrateweek': update['restheartrateweek'],
+                          'sleepscore': update['sleepscore'],
+                          'measurement': update['measurement'],
+                          'goal': update['goal'],
+                          'points': update['points']
                         };
                         if (data['measurement'] != '00:00:00')
                           phase = '1';
@@ -338,7 +338,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   Expanded(
                     flex: 1,
-                    child: Text("${(10 - int.parse(data['measurement'].toString().substring(0,2))) > 0 ? (10 - int.parse(data['measurement'].toString().substring(0,2))) : 0 }",
+                    child: Text(
+                        "${(10 - int.parse(data['measurement'].toString().substring(0, 2))) > 0 ? (10 - int.parse(data['measurement'].toString().substring(0, 2))) : 0}",
                         style: TextStyle(
                           color: Colors.red,
                           letterSpacing: 1.0,
@@ -505,16 +506,16 @@ class _HomeScreenState extends State<HomeScreen> {
                           await Navigator.pushNamed(context, '/measurement');
                       setState(() {
                         data = {
-                          'name' : update['name'],
-                          'age' : update['age'],
-                          'gender' : update['gender'],
-                          'avatar' : update['avatar'],
-                          'restheartrate' : update['restheartrate'],
-                          'restheartrateweek' : update['restheartrateweek'],
-                          'sleepscore' : update['sleepscore'],
-                          'measurement' : update['measurement'],
-                          'goal' : update['goal'],
-                          'points' : update['points']
+                          'name': update['name'],
+                          'age': update['age'],
+                          'gender': update['gender'],
+                          'avatar': update['avatar'],
+                          'restheartrate': update['restheartrate'],
+                          'restheartrateweek': update['restheartrateweek'],
+                          'sleepscore': update['sleepscore'],
+                          'measurement': update['measurement'],
+                          'goal': update['goal'],
+                          'points': update['points']
                         };
                         if (data['measurement'] != '00:00:00')
                           phase = '1';
@@ -555,32 +556,34 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: FlatButton(
                     color: Colors.blue,
                     onPressed: () async {
-                      dynamic update = await Navigator.pushNamed(context, '/goal', arguments: {
-                        'name' : data['name'],
-                        'age' : data['age'],
-                        'gender' : data['gender'],
-                        'avatar' : data['avatar'],
-                        'restheartrate' : data['restheartrate'],
-                        'restheartrateweek' : data['restheartrateweek'],
-                        'sleepscore' : data['sleepscore'],
-                        'measurement' : data['measurement'],
-                        'goal' : data['goal'],
-                        'points' : data['points']
-                      } );
+                      dynamic update = await Navigator.pushNamed(
+                          context, '/goal',
+                          arguments: {
+                            'name': data['name'],
+                            'age': data['age'],
+                            'gender': data['gender'],
+                            'avatar': data['avatar'],
+                            'restheartrate': data['restheartrate'],
+                            'restheartrateweek': data['restheartrateweek'],
+                            'sleepscore': data['sleepscore'],
+                            'measurement': data['measurement'],
+                            'goal': data['goal'],
+                            'points': data['points']
+                          });
 
                       //We updaten onze data met wat je terugkrijgt
                       setState(() {
                         data = {
-                          'name' : update['name'],
-                          'age' : update['age'],
-                          'gender' : update['gender'],
-                          'avatar' : update['avatar'],
-                          'restheartrate' : update['restheartrate'],
-                          'restheartrateweek' : update['restheartrateweek'],
-                          'sleepscore' : update['sleepscore'],
-                          'measurement' : update['measurement'],
-                          'goal' : update['goal'],
-                          'points' : update['points']
+                          'name': update['name'],
+                          'age': update['age'],
+                          'gender': update['gender'],
+                          'avatar': update['avatar'],
+                          'restheartrate': update['restheartrate'],
+                          'restheartrateweek': update['restheartrateweek'],
+                          'sleepscore': update['sleepscore'],
+                          'measurement': update['measurement'],
+                          'goal': update['goal'],
+                          'points': update['points']
                         };
                         if (data['goal'] != '00:00:00')
                           phase = '2';
@@ -645,7 +648,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   Expanded(
                     flex: 1,
-                    child: Text("${(10 - int.parse(data['measurement'].toString().substring(0,2))) > 0 ? (10 - int.parse(data['measurement'].toString().substring(0,2))) : 0 }",
+                    child: Text(
+                        "${(10 - int.parse(data['measurement'].toString().substring(0, 2))) > 0 ? (10 - int.parse(data['measurement'].toString().substring(0, 2))) : 0}",
                         style: TextStyle(
                           color: Colors.red,
                           letterSpacing: 1.0,
@@ -808,19 +812,20 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: FlatButton(
                     color: Colors.blue,
                     onPressed: () async {
-                      dynamic update = await Navigator.pushNamed(context, '/measurement');
+                      dynamic update =
+                          await Navigator.pushNamed(context, '/measurement');
                       setState(() {
                         data = {
-                          'name' : update['name'],
-                          'age' : update['age'],
-                          'gender' : update['gender'],
-                          'avatar' : update['avatar'],
-                          'restheartrate' : update['restheartrate'],
-                          'restheartrateweek' : update['restheartrateweek'],
-                          'sleepscore' : update['sleepscore'],
-                          'measurement' : update['measurement'],
-                          'goal' : update['goal'],
-                          'points' : update['points']
+                          'name': update['name'],
+                          'age': update['age'],
+                          'gender': update['gender'],
+                          'avatar': update['avatar'],
+                          'restheartrate': update['restheartrate'],
+                          'restheartrateweek': update['restheartrateweek'],
+                          'sleepscore': update['sleepscore'],
+                          'measurement': update['measurement'],
+                          'goal': update['goal'],
+                          'points': update['points']
                         };
                         if (data['measurement'] != '00:00:00')
                           phase = '1';
@@ -867,32 +872,34 @@ class _HomeScreenState extends State<HomeScreen> {
                   FlatButton(
                       color: Colors.blue,
                       onPressed: () async {
-                        dynamic update = await Navigator.pushNamed(context, '/goal', arguments: {
-                          'name' : data['name'],
-                          'age' : data['age'],
-                          'gender' : data['gender'],
-                          'avatar' : data['avatar'],
-                          'restheartrate' : data['restheartrate'],
-                          'restheartrateweek' : data['restheartrateweek'],
-                          'sleepscore' : data['sleepscore'],
-                          'measurement' : data['measurement'],
-                          'goal' : data['goal'],
-                          'points' : data['points']
-                        } );
+                        dynamic update = await Navigator.pushNamed(
+                            context, '/goal',
+                            arguments: {
+                              'name': data['name'],
+                              'age': data['age'],
+                              'gender': data['gender'],
+                              'avatar': data['avatar'],
+                              'restheartrate': data['restheartrate'],
+                              'restheartrateweek': data['restheartrateweek'],
+                              'sleepscore': data['sleepscore'],
+                              'measurement': data['measurement'],
+                              'goal': data['goal'],
+                              'points': data['points']
+                            });
 
                         //We updaten onze data met wat je terugkrijgt
                         setState(() {
                           data = {
-                            'name' : update['name'],
-                            'age' : update['age'],
-                            'gender' : update['gender'],
-                            'avatar' : update['avatar'],
-                            'restheartrate' : update['restheartrate'],
-                            'restheartrateweek' : update['restheartrateweek'],
-                            'sleepscore' : update['sleepscore'],
-                            'measurement' : update['measurement'],
-                            'goal' : update['goal'],
-                            'points' : update['points']
+                            'name': update['name'],
+                            'age': update['age'],
+                            'gender': update['gender'],
+                            'avatar': update['avatar'],
+                            'restheartrate': update['restheartrate'],
+                            'restheartrateweek': update['restheartrateweek'],
+                            'sleepscore': update['sleepscore'],
+                            'measurement': update['measurement'],
+                            'goal': update['goal'],
+                            'points': update['points']
                           };
                           if (data['goal'] != '00:00:00')
                             phase = '2';
@@ -903,7 +910,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Text('Set Goal')),
                   FlatButton(
                       color: Colors.blue,
-                      onPressed: (){
+                      onPressed: () {
                         Navigator.pushNamed(context, '/chooseworkout');
                       },
                       child: Text('Set Workout')),
@@ -964,7 +971,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   Expanded(
                     flex: 1,
-                    child: Text("${(10 - int.parse(data['measurement'].toString().substring(0,2))) > 0 ? (10 - int.parse(data['measurement'].toString().substring(0,2))) : 0 }",
+                    child: Text(
+                        "${(10 - int.parse(data['measurement'].toString().substring(0, 2))) > 0 ? (10 - int.parse(data['measurement'].toString().substring(0, 2))) : 0}",
                         style: TextStyle(
                           color: Colors.red,
                           letterSpacing: 1.0,
@@ -1127,19 +1135,20 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: FlatButton(
                     color: Colors.blue,
                     onPressed: () async {
-                      dynamic update = await Navigator.pushNamed(context, '/measurement');
+                      dynamic update =
+                          await Navigator.pushNamed(context, '/measurement');
                       setState(() {
                         data = {
-                          'name' : update['name'],
-                          'age' : update['age'],
-                          'gender' : update['gender'],
-                          'avatar' : update['avatar'],
-                          'restheartrate' : update['restheartrate'],
-                          'restheartrateweek' : update['restheartrateweek'],
-                          'sleepscore' : update['sleepscore'],
-                          'measurement' : update['measurement'],
-                          'goal' : update['goal'],
-                          'points' : update['points']
+                          'name': update['name'],
+                          'age': update['age'],
+                          'gender': update['gender'],
+                          'avatar': update['avatar'],
+                          'restheartrate': update['restheartrate'],
+                          'restheartrateweek': update['restheartrateweek'],
+                          'sleepscore': update['sleepscore'],
+                          'measurement': update['measurement'],
+                          'goal': update['goal'],
+                          'points': update['points']
                         };
                         if (data['measurement'] != '00:00:00')
                           phase = '1';
@@ -1186,32 +1195,34 @@ class _HomeScreenState extends State<HomeScreen> {
                   FlatButton(
                       color: Colors.blue,
                       onPressed: () async {
-                        dynamic update = await Navigator.pushNamed(context, '/goal', arguments: {
-                          'name' : data['name'],
-                          'age' : data['age'],
-                          'gender' : data['gender'],
-                          'avatar' : data['avatar'],
-                          'restheartrate' : data['restheartrate'],
-                          'restheartrateweek' : data['restheartrateweek'],
-                          'sleepscore' : data['sleepscore'],
-                          'measurement' : data['measurement'],
-                          'goal' : data['goal'],
-                          'points' : data['points']
-                        } );
+                        dynamic update = await Navigator.pushNamed(
+                            context, '/goal',
+                            arguments: {
+                              'name': data['name'],
+                              'age': data['age'],
+                              'gender': data['gender'],
+                              'avatar': data['avatar'],
+                              'restheartrate': data['restheartrate'],
+                              'restheartrateweek': data['restheartrateweek'],
+                              'sleepscore': data['sleepscore'],
+                              'measurement': data['measurement'],
+                              'goal': data['goal'],
+                              'points': data['points']
+                            });
 
                         //We updaten onze data met wat je terugkrijgt
                         setState(() {
                           data = {
-                            'name' : update['name'],
-                            'age' : update['age'],
-                            'gender' : update['gender'],
-                            'avatar' : update['avatar'],
-                            'restheartrate' : update['restheartrate'],
-                            'restheartrateweek' : update['restheartrateweek'],
-                            'sleepscore' : update['sleepscore'],
-                            'measurement' : update['measurement'],
-                            'goal' : update['goal'],
-                            'points' : update['points']
+                            'name': update['name'],
+                            'age': update['age'],
+                            'gender': update['gender'],
+                            'avatar': update['avatar'],
+                            'restheartrate': update['restheartrate'],
+                            'restheartrateweek': update['restheartrateweek'],
+                            'sleepscore': update['sleepscore'],
+                            'measurement': update['measurement'],
+                            'goal': update['goal'],
+                            'points': update['points']
                           };
                           if (data['goal'] != '00:00:00')
                             phase = '2';
@@ -1223,34 +1234,35 @@ class _HomeScreenState extends State<HomeScreen> {
                   FlatButton(
                       color: Colors.green,
                       onPressed: () async {
-                        dynamic update = await Navigator.pushNamed(context, '/workout', arguments: {
-                          'name' : data['name'],
-                          'age' : data['age'],
-                          'gender' : data['gender'],
-                          'avatar' : data['avatar'],
-                          'restheartrate' : data['restheartrate'],
-                          'restheartrateweek' : data['restheartrateweek'],
-                          'sleepscore' : data['sleepscore'],
-                          'measurement' : data['measurement'],
-                          'goal' : data['goal'],
-                          'points' : data['points']
-                        } );
+                        dynamic update = await Navigator.pushNamed(
+                            context, '/workout',
+                            arguments: {
+                              'name': data['name'],
+                              'age': data['age'],
+                              'gender': data['gender'],
+                              'avatar': data['avatar'],
+                              'restheartrate': data['restheartrate'],
+                              'restheartrateweek': data['restheartrateweek'],
+                              'sleepscore': data['sleepscore'],
+                              'measurement': data['measurement'],
+                              'goal': data['goal'],
+                              'points': data['points']
+                            });
 
                         //We updaten onze data met wat je terugkrijgt
                         setState(() {
                           data = {
-                            'name' : update['name'],
-                            'age' : update['age'],
-                            'gender' : update['gender'],
-                            'avatar' : update['avatar'],
-                            'restheartrate' : update['restheartrate'],
-                            'restheartrateweek' : update['restheartrateweek'],
-                            'sleepscore' : update['sleepscore'],
-                            'measurement' : update['measurement'],
-                            'goal' : update['goal'],
-                            'points' : update['points']
+                            'name': update['name'],
+                            'age': update['age'],
+                            'gender': update['gender'],
+                            'avatar': update['avatar'],
+                            'restheartrate': update['restheartrate'],
+                            'restheartrateweek': update['restheartrateweek'],
+                            'sleepscore': update['sleepscore'],
+                            'measurement': update['measurement'],
+                            'goal': update['goal'],
+                            'points': update['points']
                           };
-
                         });
                       },
                       child: Text('Start Workout')),

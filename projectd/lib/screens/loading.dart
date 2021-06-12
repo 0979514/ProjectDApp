@@ -28,8 +28,8 @@ class _LoadingScreenState extends State<LoadingScreen> {
       'sleepscore': user.sleepscore,
       'measurement': (prefs.getString("measurement")),
       'goal': prefs.getString("goal"),
-      'points' : user.points
-
+      'points': user.points
+    });
   }
 
   //Get Data from Fitbit first run

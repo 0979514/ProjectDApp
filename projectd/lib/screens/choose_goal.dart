@@ -109,6 +109,30 @@ class _ChooseGoalScreenState extends State<ChooseGoalScreen> {
     );
   }
 
+  void _showLittleTime() {
+    Widget okButton = FlatButton(
+      child: Text("OK"),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
+
+    AlertDialog alert = AlertDialog(
+      title: Text("Error"),
+      content: Text("goal has to be above 2 hours"),
+      actions: [
+        okButton,
+      ],
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     data = data.isNotEmpty ? data : ModalRoute.of(context).settings.arguments;
@@ -156,39 +180,44 @@ class _ChooseGoalScreenState extends State<ChooseGoalScreen> {
                       RaisedButton(
                         child: Text('Next'),
                         onPressed: () {
-                          var time = data['measurement'].split(":");
-                          var secondsMeasurement = int.parse(time[0]) * 3600 +
-                              int.parse(time[1]) * 60 +
-                              int.parse(time[2]);
+                          if (int.parse(_goal.split(":")[0]) < 2) {
+                            _showLittleTime();
+                          } else {
+                            var time = data['measurement'].split(":");
+                            var secondsMeasurement = int.parse(time[0]) * 3600 +
+                                int.parse(time[1]) * 60 +
+                                int.parse(time[2]);
 
-                          if (_goal != "") {
-                            var secondsCur =
-                                int.parse(_goal.split(":")[0]) * 3600 +
-                                    int.parse(_goal.split(":")[1]) * 60;
+                            if (_goal != "") {
+                              var secondsCur =
+                                  int.parse(_goal.split(":")[0]) * 3600 +
+                                      int.parse(_goal.split(":")[1]) * 60;
 
-                            if (secondsCur > secondsMeasurement) {
-                              _saveGoal(_goal);
-                              Navigator.pop(context, {
-                                'name': data['name'],
-                                'age': data['age'],
-                                'gender': data['gender'],
-                                'avatar': data['avatar'],
-                                'restheartrate': data['restheartrate'],
-                                'restheartrateweek': data['restheartrateweek'],
-                                'sleepscore': data['sleepscore'],
-                                'measurement': data['measurement'],
-                                'goal': _goal,
-                                'points': data['points']
-                              });
+                              if (secondsCur > secondsMeasurement) {
+                                _saveGoal(_goal);
+                                Navigator.pop(context, {
+                                  'name': data['name'],
+                                  'age': data['age'],
+                                  'gender': data['gender'],
+                                  'avatar': data['avatar'],
+                                  'restheartrate': data['restheartrate'],
+                                  'restheartrateweek':
+                                      data['restheartrateweek'],
+                                  'sleepscore': data['sleepscore'],
+                                  'measurement': data['measurement'],
+                                  'goal': _goal,
+                                  'points': data['points']
+                                });
+                              } else {
+                                phase = "pickDate";
+                                setState(() {});
+                              }
+
+                              setState(() {});
                             } else {
-                              phase = "pickDate";
+                              _showAlertDialog();
                               setState(() {});
                             }
-
-                            setState(() {});
-                          } else {
-                            _showAlertDialog();
-                            setState(() {});
                           }
                         },
                       )
