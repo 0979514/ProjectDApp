@@ -38,7 +38,15 @@ class _HomeScreenState extends State<HomeScreen> {
     print(data);
 
     if (data['measurement'] != '00:00:00') {
-      phase = '1';
+      if (data['goal'] != '00:00:00') {
+        //if(workout == set){
+        //phase = '3';
+        //}else{
+        phase = '2';
+        //}
+      } else {
+        phase = '1';
+      }
     }
 
     if (phase == '0') {
