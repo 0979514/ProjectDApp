@@ -47,19 +47,10 @@ _saveDate() async {
   }
 }
 
-_readGoal() async {
+_saveGoal(String s) async {
   final prefs = await SharedPreferences.getInstance();
   try {
-    _goal = prefs.getString('goal');
-  } catch (e) {
-    print("Reading went wrong");
-  }
-}
-
-_saveGoal() async {
-  final prefs = await SharedPreferences.getInstance();
-  try {
-    prefs.setString("goal", _goal);
+    prefs.setString("goal", s);
   } catch (e) {}
 }
 
@@ -90,7 +81,6 @@ class _ChooseGoalScreenState extends State<ChooseGoalScreen> {
   @override
   void initState() {
     super.initState();
-    _readGoal();
     _readDate();
     _readhours();
   }
@@ -177,7 +167,7 @@ class _ChooseGoalScreenState extends State<ChooseGoalScreen> {
                                     int.parse(_goal.split(":")[1]) * 60;
 
                             if (secondsCur > secondsMeasurement) {
-                              _saveGoal();
+                              _saveGoal(_goal);
                               Navigator.pop(context, {
                                 'name': data['name'],
                                 'age': data['age'],
@@ -332,7 +322,7 @@ class _ChooseGoalScreenState extends State<ChooseGoalScreen> {
                             _hoursAWeek != 0) {
                           phase = "pickGoal";
                           _saveDate();
-                          _saveGoal();
+                          _saveGoal(_goal);
                           _saveHours();
                           Navigator.pop(context, {
                             'name': data['name'],

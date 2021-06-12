@@ -552,7 +552,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Center(
                 child: FlatButton(
                     color: Colors.blue,
-                    onPressed: () {
+                    onPressed: () async {
                       Navigator.pushNamed(context, '/goal', arguments: {
                         'name': data['name'],
                         'age': data['age'],
@@ -563,7 +563,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         'sleepscore': data['sleepscore'],
                         'measurement': data['measurement'],
                         'goal': data['goal']
-                      });
+                      }).then((value) => setState(() {}));
                     },
                     child: Text('Set Goal')),
               ),
@@ -784,8 +784,26 @@ class _HomeScreenState extends State<HomeScreen> {
               Center(
                 child: FlatButton(
                     color: Colors.blue,
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/measurement');
+                    onPressed: () async {
+                      dynamic update =
+                          await Navigator.pushNamed(context, '/measurement');
+                      setState(() {
+                        data = {
+                          'name': update['name'],
+                          'age': update['age'],
+                          'gender': update['gender'],
+                          'avatar': update['avatar'],
+                          'restheartrate': update['restheartrate'],
+                          'restheartrateweek': update['restheartrateweek'],
+                          'sleepscore': update['sleepscore'],
+                          'measurement': update['measurement'],
+                          'goal': update['goal']
+                        };
+                        if (data['measurement'] != '00:00:00')
+                          phase = '1';
+                        else
+                          phase = '0';
+                      });
                     },
                     child: Text('Set current pace',
                         style: TextStyle(
@@ -1050,8 +1068,26 @@ class _HomeScreenState extends State<HomeScreen> {
               Center(
                 child: FlatButton(
                     color: Colors.blue,
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/measurement');
+                    onPressed: () async {
+                      dynamic update =
+                          await Navigator.pushNamed(context, '/measurement');
+                      setState(() {
+                        data = {
+                          'name': update['name'],
+                          'age': update['age'],
+                          'gender': update['gender'],
+                          'avatar': update['avatar'],
+                          'restheartrate': update['restheartrate'],
+                          'restheartrateweek': update['restheartrateweek'],
+                          'sleepscore': update['sleepscore'],
+                          'measurement': update['measurement'],
+                          'goal': update['goal']
+                        };
+                        if (data['measurement'] != '00:00:00')
+                          phase = '1';
+                        else
+                          phase = '0';
+                      });
                     },
                     child: Text('Set current pace',
                         style: TextStyle(
