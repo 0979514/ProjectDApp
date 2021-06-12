@@ -2,6 +2,7 @@ import 'package:http/http.dart';
 import 'dart:convert';
 import "package:yaml/yaml.dart";
 import "package:flutter/services.dart" as sv;
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class User {
   //User information that we need
@@ -14,6 +15,7 @@ class User {
   String sleepscore;
   String measurement;
   String goal;
+  int points;
 
   User(
       {this.name,
@@ -24,7 +26,8 @@ class User {
       this.restheartrateweek,
       this.sleepscore,
       this.measurement,
-      this.goal});
+      this.goal,
+      this.points});
 
   //Get userdata
   Future<void> GetData() async {
@@ -100,6 +103,7 @@ class User {
 
       this.measurement = measurement != null ? measurement : '00:00:00';
       this.goal = goal != null ? goal : '00:00:00';
+      this.points = points != null ? points : 0;
 
       //Calculate weekly resting heartrate
       this.restheartrateweek =

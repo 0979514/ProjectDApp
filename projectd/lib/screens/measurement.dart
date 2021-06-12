@@ -39,6 +39,7 @@ class _MeasurementScreenState extends State<MeasurementScreen> {
         'sleepscore': user.sleepscore,
         'measurement': user.measurement,
         'goal': user.goal,
+        'points': user.points
       });
     } catch (e) {
       print(e);
