@@ -14,7 +14,7 @@ DateTime _date;
 int _hoursAWeek;
 String phase = "pickGoal";
 bool loading = false;
-
+int workoutPlan;
 String formatDateToString(DateTime x) {
   return "${x.year}/${x.month}/${x.day}";
 }

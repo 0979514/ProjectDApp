@@ -18,6 +18,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     if (prefs.getString("measurement") == null)
       prefs.setString("measurement", "00:00:00");
     if (prefs.getString("goal") == null) prefs.setString("goal", "00:00:00");
+    if (prefs.getInt("points") == null) prefs.setInt("points", 0);
     Navigator.pushReplacementNamed(context, '/home', arguments: {
       'name': user.name,
       'age': user.age,
@@ -28,7 +29,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
       'sleepscore': user.sleepscore,
       'measurement': (prefs.getString("measurement")),
       'goal': prefs.getString("goal"),
-      'points': user.points
+      'points': prefs.getInt("points")
     });
   }
 

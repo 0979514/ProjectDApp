@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:projectd/classes/Exercise.dart';
-import '../ExerciseCard.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class ChooseWorkoutScreen extends StatefulWidget {
   const ChooseWorkoutScreen({Key key}) : super(key: key);
@@ -10,63 +10,91 @@ class ChooseWorkoutScreen extends StatefulWidget {
 }
 
 class _ChooseWorkoutScreenState extends State<ChooseWorkoutScreen> {
-  Map data = {};
+  void exit() {
+    _saveWorkoutPlan();
+    Navigator.pop(context);
+  }
 
-  List<Exercise> exercises = [
-    Exercise(points: 1000, text: 'Train Endurance: Ren'),
-    Exercise(points: 500, text: 'Active Rest: Walk '),
-  ];
+  _readWorkoutPlan() async {
+    final prefs = await SharedPreferences.getInstance();
+    if (prefs.getInt("workoutplan") == null) {
+      prefs.setInt("workoutplan", -1);
+    }
+    workoutplan = prefs.getInt("workoutplan");
+    setState(() {});
+  }
 
+  _saveWorkoutPlan() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    prefs.setInt("workoutplan", workoutplan);
+  }
+
+  _readHoursAWeek() async {
+    final prefs = await SharedPreferences.getInstance();
+    hoursaweek = prefs.getInt("hours-a-week");
+    setState(() {});
+  }
+
+  int workoutplan;
+  int hoursaweek;
   @override
   Widget build(BuildContext context) {
-
-    data = data.isNotEmpty ? data : ModalRoute.of(context).settings.arguments;
-
-
-
+    _readHoursAWeek();
+    _readWorkoutPlan();
     return Scaffold(
       appBar: AppBar(
-        title: Text("Workout"),
+        title: Text("Set Goal"),
         centerTitle: true,
         backgroundColor: Colors.blue[400],
         elevation: 0.0,
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            SizedBox(height: 10.0),
-            Text("Total Points: ${data['points']}"),
-            Column(
-              children: exercises.map((exercise) => ExerciseCard(
-                  exercise:exercise,
-                  delete: () => this.setState(() {
-                    exercises.remove(exercise);
-                    data['points'] = data['points'] + exercise.points;
-                    print(data['points']);
-                  })
-              )).toList(),
-            ),
-            SizedBox(height: 10.0,),
-            Center(
-              child: FlatButton(
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(30.0, 40.0, 30.0, 0.0),
+          child: Center(
+            child: Column(children: <Widget>[
+              FlatButton(
                   color: Colors.blue,
-                  onPressed: (){
-                    Navigator.pop(context, {
-                      'name' : data['name'],
-                      'age' : data['age'],
-                      'gender' : data['gender'],
-                      'avatar' : data['avatar'],
-                      'restheartrate' : data['restheartrate'],
-                      'restheartrateweek' : data['restheartrateweek'],
-                      'sleepscore' : data['sleepscore'],
-                      'measurement' : data['measurement'],
-                      'goal' : data['goal'],
-                      'points' : data['points']
-                    });
+                  onPressed: () {
+                    workoutplan = 1;
+                    exit();
                   },
-                  child: Text('Finish Workout')),
-            ),
-          ],
+                  child: Center(
+                    child: Text(
+                        "2 days a week workout plan ${workoutplan == 1 ? "| current" : ""} ${hoursaweek <= 2 ? "| Recommended" : ""}"),
+                  )),
+              FlatButton(
+                  color: Colors.blue,
+                  onPressed: () {
+                    workoutplan = 2;
+                    exit();
+                  },
+                  child: Center(
+                    child: Text(
+                        "3 days a week workout plan ${workoutplan == 2 ? "| current" : ""} ${2 < hoursaweek && hoursaweek <= 5 ? "| Recommended" : ""}"),
+                  )),
+              FlatButton(
+                  color: Colors.blue,
+                  onPressed: () {
+                    workoutplan = 3;
+                    exit();
+                  },
+                  child: Center(
+                    child: Text(
+                        "5 days a week workout plan ${workoutplan == 3 ? "| current" : ""} ${hoursaweek > 5 ? "| Recommended" : ""}"),
+                  )),
+              FlatButton(
+                  color: Colors.blue,
+                  onPressed: () {
+                    workoutplan = -1;
+                    exit();
+                  },
+                  child: Center(
+                    child: Text("Remove workout"),
+                  )),
+            ]),
+          ),
         ),
       ),
     );

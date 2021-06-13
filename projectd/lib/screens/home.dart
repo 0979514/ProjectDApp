@@ -10,10 +10,19 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   Map data = {};
-
+  int workoutplan;
   String formatTimeToString(String x) {
     var y = x.split(":");
     return "${y[0].length == 1 ? "0" + y[0] : y[0]}:${y[1].length == 1 ? "0" + y[1] : y[1]}:00";
+  }
+
+  _readWorkoutPlan() async {
+    final prefs = await SharedPreferences.getInstance();
+    if (prefs.getInt("workoutplan") == null) {
+      prefs.setInt("workoutplan", -1);
+    }
+    workoutplan = prefs.getInt("workoutplan");
+    setState(() {});
   }
 
   _loadMeasurement() async {
@@ -34,16 +43,16 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     data = data.isNotEmpty ? data : ModalRoute.of(context).settings.arguments;
-
+    _readWorkoutPlan();
     //print(data);
 
     if (data['measurement'] != '00:00:00') {
       if (data['goal'] != '00:00:00') {
-        //if(workout == set){
-        //phase = '3';
-        //}else{
-        phase = '2';
-        //}
+        if (workoutplan != -1) {
+          phase = '3';
+        } else {
+          phase = '2';
+        }
       } else {
         phase = '1';
       }
@@ -1276,7 +1285,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Text('Start Workout')),
                   FlatButton(
                       color: Colors.blue,
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/chooseworkout');
+                      },
                       child: Text('Set Workout')),
                 ],
               ),
