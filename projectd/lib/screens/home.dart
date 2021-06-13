@@ -35,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     data = data.isNotEmpty ? data : ModalRoute.of(context).settings.arguments;
 
-    print(data);
+    //print(data);
 
     if (data['measurement'] != '00:00:00') {
       if (data['goal'] != '00:00:00') {

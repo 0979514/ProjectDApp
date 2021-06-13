@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:projectd/ExerciseCard.dart';
 import 'package:projectd/classes/Exercise.dart';
-import '../ExerciseCard.dart';
+import 'package:projectd/classes/User.dart';
 
-class ChooseWorkoutScreen extends StatefulWidget {
-  const ChooseWorkoutScreen({Key key}) : super(key: key);
+class ActiveRest extends StatefulWidget {
+  const ActiveRest({Key key}) : super(key: key);
 
   @override
-  _ChooseWorkoutScreenState createState() => _ChooseWorkoutScreenState();
+  _ActiveRestState createState() => _ActiveRestState();
 }
 
-class _ChooseWorkoutScreenState extends State<ChooseWorkoutScreen> {
+class _ActiveRestState extends State<ActiveRest> {
+
   Map data = {};
 
   List<Exercise> exercises = [
-    Exercise(points: 1000, text: 'Train Endurance: Ren'),
-    Exercise(points: 500, text: 'Active Rest: Walk '),
+    Exercise(points: 100, text: '100 push ups (example)'),
+    Exercise(points: 300, text: '300 push ups (example)'),
+    Exercise(points: 600, text: '600 push ups (example)'),
+    Exercise(points: 900, text: '900 push ups (example)'),
+    Exercise(points: 1100, text: '1100 push ups (example)'),
   ];
 
   @override
