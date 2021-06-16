@@ -172,6 +172,7 @@ class _MeasurementScreenState extends State<MeasurementScreen> {
                       var date = new DateTime.fromMillisecondsSinceEpoch(
                           pace.toInt() * 1000);
                       answer = date.toString().substring(11, 19);
+                      if (answer == "01:00:00") answer = "00:00:00";
                       print("answerpressed = $answer");
                       updatePace(answer);
                       setState(() {
